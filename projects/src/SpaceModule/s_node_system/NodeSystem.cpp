@@ -42,4 +42,11 @@ namespace SpaceModule
 			m_Nodes.erase(it);
 		}
 	}
+	void NodeSystem::Go(GraphicSystem& const gs)
+	{
+		for(Node* node : m_Nodes)
+		{
+			node->OnRender(gs);
+		}
+	}
 }

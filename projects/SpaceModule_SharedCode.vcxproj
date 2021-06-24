@@ -133,12 +133,22 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platforms\juce\JuceApplication.h" />
+    <ClInclude Include="src\Platforms\juce\JuceGraphicSystem.h" />
+    <ClInclude Include="src\Platforms\juce\AppComponent.h" />
+    <ClInclude Include="src\SpaceModule\core\Layer.h" />
+    <ClInclude Include="src\SpaceModule\core\SystemsHeader.h" />
+    <ClInclude Include="src\SpaceModule\s_graphic_system\Color.h" />
+    <ClInclude Include="src\SpaceModule\s_graphic_system\GraphicSystem.h" />
     <ClInclude Include="src\SpaceModule\core\Application.h" />
     <ClInclude Include="src\SpaceModule\core\Base.h" />
     <ClInclude Include="src\SpaceModule\core\SpaceModuleHeader.h" />
     <ClInclude Include="src\SpaceModule\math\Math.h" />
     <ClInclude Include="src\SpaceModule\s_node_system\nodes\ASDRNode.h" />
     <ClInclude Include="src\SpaceModule\SpaceModule.h" />
+    <ClInclude Include="src\SpaceModule\s_ui_system\UISystem.h" />
+    <ClInclude Include="src\SpaceModule\s_ui_system\UIElement.h" />
+    <ClInclude Include="src\SpaceModule\s_ui_system\UIElementRect.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
@@ -1309,8 +1319,16 @@
     <ClInclude Include="src\JUCE\PluginProcessor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platforms\juce\JuceApplication.cpp" />
+    <ClCompile Include="src\Platforms\juce\JuceGraphicSystem.cpp" />
+    <ClCompile Include="src\Platforms\juce\AppComponent.cpp" />
+    <ClCompile Include="src\SpaceModule\core\Layer.cpp" />
+    <ClCompile Include="src\SpaceModule\s_graphic_system\GraphicSystem.cpp" />
     <ClCompile Include="src\SpaceModule\core\Application.cpp" />
     <ClCompile Include="src\SpaceModule\s_node_system\nodes\ASDRNode.cpp" />
+    <ClCompile Include="src\SpaceModule\s_ui_system\UISystem.cpp" />
+    <ClCompile Include="src\SpaceModule\s_ui_system\UIElement.cpp" />
+    <ClCompile Include="src\SpaceModule\s_ui_system\UIElementRect.cpp" />
     <ClCompile Include="vendor\juce\juce_library_code\include_juce_audio_basics.cpp" />
     <ClCompile Include="vendor\juce\juce_library_code\include_juce_audio_devices.cpp" />
     <ClCompile Include="vendor\juce\juce_library_code\include_juce_audio_formats.cpp" />
@@ -3354,6 +3372,9 @@
     <None Include="vendor\juce\juce_core\native\java\README.txt" />
     <None Include="vendor\juce\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt" />
     <None Include="vendor\juce\juce_graphics\image_formats\pnglib\libpng_readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\SpaceModule\s_ui_system\_concepts.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

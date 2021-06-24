@@ -10,7 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-#include "SpaceModule/core/Application.h"
+#include "Platforms/juce/JuceApplication.h"
 
 //==============================================================================
 /**
@@ -24,12 +24,14 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-
+    void mouseMove(const juce::MouseEvent& event) override;
+    void mouseDown(const juce::MouseEvent& event) override;
 private:
-    std::unique_ptr<SpaceModule::Application> m_App;
+    Scope<JuceApplication> m_App;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     SpaceModuleAudioProcessor& audioProcessor;
+    glm::vec<2, int, glm::qualifier::defaultp> mouse_position;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpaceModuleAudioProcessorEditor)
 };

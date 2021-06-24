@@ -1,0 +1,28 @@
+Application
+{
+
+	LayerStack
+	{
+		
+		UILayer{
+
+
+
+		}
+
+		SceneLayer{
+		
+
+
+		}
+
+	}
+
+	Systems:
+	InputSystem
+	UISystem
+	NodeSystem
+	GraphicSystem
+	AudioSystem
+
+}

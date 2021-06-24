@@ -2,6 +2,9 @@
 
 #include "SpaceModule\core\SpaceModuleHeader.h"
 
+#include "SpaceModule\s_ui_system\UIElementRect.h"
+#include "SpaceModule\s_graphic_system\GraphicSystem.h"
+
 namespace SpaceModule
 {
 
@@ -17,27 +20,20 @@ namespace SpaceModule
 		None, AudioIn, AudioOut, MIDIIn, MIDIOut, Pattern, ASDR, LFO, Oscillator, Synth, Math
 	};
 
-	class Node
+	class Node : public UIElementRect
 	{
 	public:
 		Node(NodeType nodetype_in);
 		virtual ~Node() = default;
 
-		virtual void OnAttach() {}
-		virtual void OnDetach() {}
-		//virtual void OnUpdate(Timestep ts) {}
-		virtual void OnRender() {}
-		//virtual void OnEvent(Event & event) {}
+		virtual void OnRender(GraphicSystem& const gs) = 0;
 
 		const std::string& GetName() const { return m_CustomName; }
 		const NodeType& GetNodeType() const { return m_Type; }
-	private: // node core
+	protected: // node core
 		NodeType m_Type;
 		std::vector<SignalInput> signals_inputs;
 		std::vector<SignalOutput> signals_output;
-	
-	private: // node user interface
-		std::string m_CustomName;
 		
 		
 	};

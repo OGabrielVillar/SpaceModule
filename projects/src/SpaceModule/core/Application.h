@@ -1,8 +1,7 @@
 #pragma once
 
-#include "SpaceModule\core\SpaceModuleHeader.h"
-#include "SpaceModule\s_node_system\NodeSystem.h"
-#include "SpaceModule\s_node_system\nodes\ASDRNode.h"
+#include "SystemsHeader.h"
+#include "Platforms/juce/JuceGraphicSystem.h"
 
 namespace SpaceModule
 {
@@ -13,8 +12,11 @@ namespace SpaceModule
 		Application();
 		~Application();
 
-	private: // application core
-		Scope<NodeSystem> s_NodeSystem;
+		virtual void Go();
+
+	protected: // application core
+		NodeSystem* s_NodeSystem = nullptr;
+		GraphicSystem* s_GraphicSystem = nullptr;
 	};
 
 }

@@ -1,8 +1,10 @@
 #pragma once
 
 #include "SpaceModule/core/SpaceModuleHeader.h"
+#include "SpaceModule/s_graphic_system/GraphicSystem.h"
 
 #include "Node.h"
+#include "nodes/ASDRNode.h"
 
 namespace SpaceModule
 {
@@ -21,6 +23,8 @@ namespace SpaceModule
 		void PushOverlay(Node* overlay);
 		void PopNode(Node* node);
 		void PopOverlay(Node* overlay);
+
+		void Go(GraphicSystem& const);
 
 
 	private: // node system core
