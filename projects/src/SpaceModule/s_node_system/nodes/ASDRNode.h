@@ -12,7 +12,7 @@ namespace SpaceModule
         ASDRNode();
         ~ASDRNode();
 
-        //virtual void OnAttach() override;
+        virtual void OnAttach() override;
         //virtual void OnDetach() override;
 		////virtual void OnUpdate(Timestep ts) override {{}
         virtual void OnRender(GraphicSystem& const gs) override;

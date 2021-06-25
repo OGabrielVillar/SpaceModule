@@ -5,7 +5,7 @@
 #include "AppComponent.h"
 #include "JuceGraphicSystem.h"
 
-class JuceApplication : SpaceModule::Application
+class JuceApplication : public SpaceModule::Application
 {
 public:
 	JuceApplication();

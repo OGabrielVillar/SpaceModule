@@ -4,7 +4,8 @@ JuceApplication::JuceApplication() :
 	Application(),
 	s_JuceGraphicSystem(new JuceGraphicSystem())
 {
-	s_NodeSystem->PushNode(new SpaceModule::ASDRNode);
+	s_UISystem->PushElement(new SpaceModule::ASDRNode());
+
 }
 
 JuceApplication::~JuceApplication()
@@ -18,4 +19,5 @@ void JuceApplication::Go(juce::Graphics& const g)
 {
 	s_JuceGraphicSystem->AppendJuceGraphics(g);
 	s_NodeSystem->Go(*s_JuceGraphicSystem);
+	s_UISystem->Go(*s_JuceGraphicSystem);
 }

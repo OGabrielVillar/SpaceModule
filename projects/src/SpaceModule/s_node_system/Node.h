@@ -5,35 +5,50 @@
 #include "SpaceModule\s_ui_system\UIElementRect.h"
 #include "SpaceModule\s_graphic_system\GraphicSystem.h"
 
+
 namespace SpaceModule
 {
 
-	struct SignalInput {
-	
-	};
+	enum class SignalType 
+	{ None, Float, Vec2, Vec3, Vec4, Mat4, Audio, Texture };
 
-	struct SignalOutput {
-	
-	};
+	enum class NodeType 
+	{ None, AudioIn, AudioOut, MIDIIn, MIDIOut, Pattern, ASDR, LFO, Oscillator, Synth, Math };
 
-	enum class NodeType {
-		None, AudioIn, AudioOut, MIDIIn, MIDIOut, Pattern, ASDR, LFO, Oscillator, Synth, Math
-	};
+}
 
-	class Node : public UIElementRect
+namespace SpaceModule
+{
+
+	class Node : public UIElement
 	{
+		struct SignalSlot {
+			SignalType type = SignalType::None;
+			NodeType NodeLinkRestriction = NodeType::None;
+			uint8_t slot;
+			Node* node;
+			SignalSlot* connectedTo;
+		};
+		struct Slot {
+			float slotHeight;
+			//UIElement;
+		};
+
 	public:
 		Node(NodeType nodetype_in);
 		virtual ~Node() = default;
 
-		virtual void OnRender(GraphicSystem& const gs) = 0;
+		//virtual void OnRender(GraphicSystem& const gs) = 0;
 
-		const std::string& GetName() const { return m_CustomName; }
-		const NodeType& GetNodeType() const { return m_Type; }
+		const NodeType& GetNodeType() const { return m_type; }
+
 	protected: // node core
-		NodeType m_Type;
-		std::vector<SignalInput> signals_inputs;
-		std::vector<SignalOutput> signals_output;
+		NodeType m_type;
+		float width;
+		float height;
+		std::vector<Slot> m_slots;
+		std::vector<SignalSlot> signal_inputs;
+		std::vector<SignalSlot> signal_outputs;
 		
 		
 	};

@@ -27,7 +27,7 @@ public:
     void mouseMove(const juce::MouseEvent& event) override;
     void mouseDown(const juce::MouseEvent& event) override;
 private:
-    Scope<JuceApplication> m_App;
+    std::unique_ptr<JuceApplication> m_App;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     SpaceModuleAudioProcessor& audioProcessor;
