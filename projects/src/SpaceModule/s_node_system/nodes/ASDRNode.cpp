@@ -9,7 +9,8 @@ namespace SpaceModule
         layout.distance.y = 0;
         size.x = 100.0f;
         size.y = 10.0f;
-        SetLayoutSnap(XSnap::Right, YSnap::Botton);
+        SetYSizeAutoSnap(true);
+        SetLayoutSnap(XSnap::Left, YSnap::Center);
     }
 
     ASDRNode::~ASDRNode()
@@ -23,8 +24,7 @@ namespace SpaceModule
 
     void ASDRNode::OnRender(GraphicSystem& const gs)
     {
-        gs.DrawRect( layout.top_right.x, layout.top_right.y, size.x, size.y );
-
+        gs.DrawRect( layout.top_right_stack.x, layout.top_right_stack.y, size.x, size.y , rgb(100, 100, 100));
     }
     
 }

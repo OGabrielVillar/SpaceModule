@@ -11,7 +11,7 @@ namespace SpaceModule
 	class UISystem
 	{
 	public:
-		UISystem() = default;
+		UISystem();
 		~UISystem();
 	
 		void WhenResized(float x_in, float y_in);

@@ -18,4 +18,6 @@ namespace SpaceModule {
 	using vec4   = glm::vec4;
 	using u8vec3 = glm::u8vec3;
 	using u8vec4 = glm::u8vec4;
+	using rgb    = glm::u8vec3;
+	using rgba   = glm::u8vec4;
 }

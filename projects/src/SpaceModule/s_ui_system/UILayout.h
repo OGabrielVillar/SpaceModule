@@ -18,7 +18,7 @@ namespace SpaceModule
 	{
 	public:
 		UILayout();
-		~UILayout();
+		~UILayout() = default;
 	public:
 		//user
 		XSnap x_snap;
@@ -30,21 +30,8 @@ namespace SpaceModule
 		float x_crop_min;
 		float y_crop_min;
 
-		//auto
-		glm::vec2 snap_sign; // 1.0f||-1.f
-
+		//autos
 		glm::vec2 top_right;
-	};
-
-	struct UIFieldLayout
-	{
-		//user
-		glm::vec2 size;
-		XSnap x_snap;
-		YSnap y_snap;
-		glm::vec2 distance;
-
-		//auto
-		glm::vec2 snap_sign; // 1.0f||-1.f
+		glm::vec2 top_right_stack;
 	};
 }

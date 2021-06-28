@@ -26,7 +26,9 @@ public:
     void resized() override;
     void mouseMove(const juce::MouseEvent& event) override;
     void mouseDown(const juce::MouseEvent& event) override;
+    void mouseUp(const juce::MouseEvent& event) override;
 private:
+    SpaceModule::rgb testColor = SpaceModule::rgb(255,0,255);
     std::unique_ptr<JuceApplication> m_App;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.

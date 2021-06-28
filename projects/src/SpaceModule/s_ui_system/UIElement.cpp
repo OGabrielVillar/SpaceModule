@@ -4,48 +4,66 @@ namespace SpaceModule
 {
 
 	UIElement::UIElement() :
-		layout()
+		layout(),
+		parent(nullptr),
+		childs(),
+		size(0.f,0.f)
 	{
 	}
 
 	UIElement::UIElement(UIElement* parent_in):
 		layout(),
-		parent(parent_in)
+		parent(parent_in),
+		childs(),
+		size(0.f, 0.f)
 	{
+	}
+
+	void UIElement::SetCustomName(const std::string& customName_in)
+	{
+		m_customName = customName_in;
 	}
 
 	void UIElement::SetLayoutSnap(XSnap x_snap_in, YSnap y_snap_in)
 	{
-		//TODO ASSERT IF 0
-		if ((char)x_snap_in > (char)2)
-		{
-			layout.snap_sign.x = -1.0f;
-		}
-		else
-		{
-			layout.snap_sign.x = 1.0f;
-		}
-		if ((char)y_snap_in > (char)2)
-		{
-			layout.snap_sign.y = -1.0f;
-		}
-		else
-		{
-			layout.snap_sign.y = 1.0f;
-		}
 		layout.x_snap = x_snap_in;
 		layout.y_snap = y_snap_in;
 	}
 
 	void UIElement::SetSize(float x_in, float y_in)
 	{
-		size.x = x_in;
-		size.y = y_in;
+
+		if (!x_size_autosnap)
+		{
+			size.x = x_in;
+		}else
+		{
+			XSizeAutoSnap();
+		}
+
+		if (!y_size_autosnap)
+		{
+			size.y = y_in;
+		}else
+		{
+			YSizeAutoSnap();
+		}
+
+		if ( layout.x_snap != XSnap::Left || layout.y_snap != YSnap::Top)
+		{
+			GenerateTopRight();
+		}
+
+		if (!childs.empty())
+		{
+			RearrangeChilds();
+		}
+
 	}
 
 	void UIElement::SetSize(glm::vec2& const size_in)
 	{
-		size = size_in;
+		SetSize(size_in.x, size_in.y);
 	}
 
 	void UIElement::SetLayoutDistance(glm::vec2& const dist_in)
@@ -77,19 +95,73 @@ namespace SpaceModule
 		{
 			case YSnap::Top:
 				layout.top_right.y = layout.distance.y;
-				return;
+				break;
 			case YSnap::Center:
 				layout.top_right.y = layout.distance.y + (parent->size.y * 0.5f) - (size.y * 0.5f);
-				return;
+				break;
 			case YSnap::Botton:
 				layout.top_right.y = layout.distance.y + parent->size.y - size.y;
-				return;
+				break;
 		}
+		layout.top_right_stack = parent->layout.top_right + layout.top_right;
 	}
 
 	void UIElement::SetParent(UIElement* element_in)
 	{
 		parent = element_in;
+		element_in->childs.push_back(this);
+		GenerateTopRight();
+	}
+
+	void UIElement::SetSizeAutoSnap(bool b_in)
+	{
+		x_size_autosnap = b_in;  y_size_autosnap = b_in;
+	}
+
+	void UIElement::SetXSizeAutoSnap(bool b_in)
+	{
+		x_size_autosnap = b_in;
+	}
+
+	void UIElement::SetYSizeAutoSnap(bool b_in)
+	{
+		y_size_autosnap = b_in;
+	}
+
+	void UIElement::RearrangeChilds()
+	{
+		for (UIElement* child : childs)
+		{
+			if (child->x_size_autosnap)
+			{
+				child->XSizeAutoSnap();
+			}
+			if (child->y_size_autosnap)
+			{
+				child->YSizeAutoSnap();
+			}
+			child->GenerateTopRight();
+			child->RearrangeChilds();
+		}
+	}
+
+	void UIElement::RearrangeChildTopRightStack()
+	{
+		for (UIElement* child : childs)
+		{
+			child->layout.top_right_stack = layout.top_right + child->layout.top_right;
+			child->RearrangeChildTopRightStack();
+		}
+	}
+
+	void UIElement::XSizeAutoSnap()
+	{
+		size.x = parent->size.x - layout.distance.x;
+	}
+
+	void UIElement::YSizeAutoSnap()
+	{
+		size.y = parent->size.y - layout.distance.y;
 	}
 
 }

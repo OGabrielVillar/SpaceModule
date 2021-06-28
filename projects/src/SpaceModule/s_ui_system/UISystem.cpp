@@ -2,6 +2,10 @@
 
 namespace SpaceModule
 {
+	UISystem::UISystem()
+	{
+		screen.SetCustomName("UISystemScreen");
+	}
 	UISystem::~UISystem()
 	{
 		for (UIElement* Element : m_elements)

@@ -153,7 +153,7 @@ void SpaceModuleAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
 
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        //auto* channelData = buffer.getWritePointer (channel);
+        auto* channelData = buffer.getWritePointer (channel);
 
         // ..do something to the data...
     }

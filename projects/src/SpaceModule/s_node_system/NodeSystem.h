@@ -10,16 +10,18 @@ namespace SpaceModule
 {
 
 	struct Camera {
-
+		vec2 position = vec2(0.0f);
+		float zoom = 1.0f;
 	};
 
 	class NodeSystem
 	{
 	public:
-		NodeSystem() = default;
+		NodeSystem();
 		~NodeSystem();
 
-		void PushNode(Node* node);
+		Node* PushNodeToWindow(Node* node);
+		Node* PushNodeToNode(Node*,Node*);
 		void PushOverlay(Node* overlay);
 		void PopNode(Node* node);
 		void PopOverlay(Node* overlay);
@@ -29,8 +31,10 @@ namespace SpaceModule
 
 	private: // node system core
 		Camera camera;
-		std::vector<Node*> m_Nodes;
+		std::vector<Node*> m_nodes;
 		unsigned int m_NodeInsertIndex = 0;
+	public:
+		UIElement window;
 	};
 
 }

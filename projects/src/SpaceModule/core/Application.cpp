@@ -6,13 +6,15 @@ namespace SpaceModule
 		s_NodeSystem(new NodeSystem()),
 		s_UISystem(new UISystem())
 	{
+		s_NodeSystem->window.SetParent(&s_UISystem->screen);
 	}
 	Application::~Application()
 	{
+		delete s_NodeSystem;
+		delete s_UISystem;
 	}
 	void Application::Go()
 	{
-		s_NodeSystem->Go(*s_GraphicSystem);
 	}
 	void Application::WhenResized(float x_in, float y_in)
 	{

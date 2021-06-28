@@ -18,7 +18,7 @@ SpaceModuleAudioProcessorEditor::SpaceModuleAudioProcessorEditor (SpaceModuleAud
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (1200, 800);
 }
 
 SpaceModuleAudioProcessorEditor::~SpaceModuleAudioProcessorEditor()
@@ -28,8 +28,9 @@ SpaceModuleAudioProcessorEditor::~SpaceModuleAudioProcessorEditor()
 //==============================================================================
 void SpaceModuleAudioProcessorEditor::paint (juce::Graphics& g)
 {
+    m_App->Go(g);
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
+    //g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
 
     std::stringstream text;
 
@@ -40,11 +41,10 @@ void SpaceModuleAudioProcessorEditor::paint (juce::Graphics& g)
     g.setFont (15.0f);
     g.drawFittedText (text.str(), getLocalBounds(), juce::Justification::bottomRight, 1);
 
-    g.setColour(juce::Colour(255, 100, 255));
+    g.setColour(juce::Colour(testColor.r, testColor.g, testColor.b));
     
     g.fillRect(mouse_position.x, mouse_position.y, 10, 10);
 
-    m_App->Go(g);
 }
 
 void SpaceModuleAudioProcessorEditor::resized()
@@ -64,7 +64,18 @@ void SpaceModuleAudioProcessorEditor::mouseMove(const juce::MouseEvent& event)
 
 void SpaceModuleAudioProcessorEditor::mouseDown(const juce::MouseEvent& event)
 {
+    testColor = SpaceModule::rgb(50, 155, 155);
     mouse_position.x = event.getPosition().x;
     mouse_position.y = event.getPosition().y;
+    
+    repaint();
+}
+
+void SpaceModuleAudioProcessorEditor::mouseUp(const juce::MouseEvent& event)
+{
+    testColor = SpaceModule::rgb(155, 50, 155);
+    mouse_position.x = event.getPosition().x;
+    mouse_position.y = event.getPosition().y;
+
     repaint();
 }

@@ -17,7 +17,6 @@ namespace SpaceModule
 
 	protected: // application core
 		NodeSystem* s_NodeSystem = nullptr;
-		GraphicSystem* s_GraphicSystem = nullptr;
 		UISystem* s_UISystem = nullptr;
 	};
 

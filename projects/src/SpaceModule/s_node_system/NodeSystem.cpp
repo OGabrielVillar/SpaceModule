@@ -2,49 +2,67 @@
 
 namespace SpaceModule
 {
+	NodeSystem::NodeSystem() 
+	{
+		window.SetCustomName("NodeSystemWindow");
+		window.SetSizeAutoSnap(true);
+	}
+
 	NodeSystem::~NodeSystem()
 	{
-		for (Node* node : m_Nodes)
+		for (Node* node : m_nodes)
 		{
 			node->OnDetach();
 			delete node;
 		}
 	}
 
-	void NodeSystem::PushNode(Node* node)
+	Node* NodeSystem::PushNodeToWindow(Node* node_in)
 	{
-		m_Nodes.emplace(m_Nodes.begin() + m_NodeInsertIndex, node);
+		node_in->SetParent(&window);
+		node_in->OnAttach();
+		m_nodes.emplace(m_nodes.begin() + m_NodeInsertIndex, node_in);
 		m_NodeInsertIndex++;
+		return node_in;
+	}
+
+	Node* NodeSystem::PushNodeToNode(Node* node_in, Node* parent_in)
+	{
+		node_in->SetParent(parent_in);
+		node_in->OnAttach();
+		m_nodes.emplace(m_nodes.begin() + m_NodeInsertIndex, node_in);
+		m_NodeInsertIndex++;
+		return node_in;
 	}
 
 	void NodeSystem::PushOverlay(Node* overlay)
 	{
-		m_Nodes.emplace_back(overlay);
+		m_nodes.emplace_back(overlay);
 	}
 
 	void NodeSystem::PopNode(Node* node)
 	{
-		auto it = std::find(m_Nodes.begin(), m_Nodes.begin() + m_NodeInsertIndex, node);
-		if (it != m_Nodes.begin() + m_NodeInsertIndex)
+		auto it = std::find(m_nodes.begin(), m_nodes.begin() + m_NodeInsertIndex, node);
+		if (it != m_nodes.begin() + m_NodeInsertIndex)
 		{
 			node->OnDetach();
-			m_Nodes.erase(it);
+			m_nodes.erase(it);
 			m_NodeInsertIndex--;
 		}
 	}
 
 	void NodeSystem::PopOverlay(Node* overlay)
 	{
-		auto it = std::find(m_Nodes.begin() + m_NodeInsertIndex, m_Nodes.end(), overlay);
-		if (it != m_Nodes.end())
+		auto it = std::find(m_nodes.begin() + m_NodeInsertIndex, m_nodes.end(), overlay);
+		if (it != m_nodes.end())
 		{
 			overlay->OnDetach();
-			m_Nodes.erase(it);
+			m_nodes.erase(it);
 		}
 	}
 	void NodeSystem::Go(GraphicSystem& const gs)
 	{
-		for(Node* node : m_Nodes)
+		for(Node* node : m_nodes)
 		{
 			node->OnRender(gs);
 		}
