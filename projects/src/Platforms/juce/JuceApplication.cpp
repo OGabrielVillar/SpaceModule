@@ -12,6 +12,12 @@ JuceApplication::JuceApplication() :
 	m_node_B->SetSize(50.0f,50.0f);
 	m_node_B->GenerateTopRight();
 
+	auto testa = s_UISystem->PushElement(new SpaceModule::UI::Knob());
+	testa->SetLayoutDistance(SpaceModule::vec2(150.f, 150.f));
+	testa->SetCustomName("knob one");
+	auto testb = s_UISystem->PushElement(new SpaceModule::UI::Knob());
+	testb->SetLayoutDistance(SpaceModule::vec2(200.f, 200.f));
+	testa->SetCustomName("knob two");
 }
 
 JuceApplication::~JuceApplication()

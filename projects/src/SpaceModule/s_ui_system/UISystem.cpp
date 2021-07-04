@@ -2,7 +2,8 @@
 
 namespace SpaceModule
 {
-	UISystem::UISystem()
+	UISystem::UISystem() :
+		m_caller(screen)
 	{
 		screen.SetCustomName("UISystemScreen");
 	}
@@ -24,12 +25,13 @@ namespace SpaceModule
 		}
 	}
 
-	void UISystem::PushElement(UIElement* element_in)
+	UIElement* UISystem::PushElement(UIElement* element_in)
 	{
 		element_in->SetParent(&screen);
 		element_in->OnAttach();
 		m_elements.emplace(m_elements.begin() + m_ElementInsertIndex, element_in);
 		m_ElementInsertIndex++;
+		return element_in;
 	}
 
 	void UISystem::PushOverlay(UIElement* overlay)
@@ -58,11 +60,20 @@ namespace SpaceModule
 			m_elements.erase(it);
 		}
 	}
-	void UISystem::Go(GraphicSystem& const gs)
+	void UISystem::ScanChilds(UIElement* element_in, const GraphicSystem& gs) const
 	{
-		for (UIElement* Element : m_elements)
+		for (UIElement* element : element_in->GetChilds())
 		{
-			Element->OnRender(gs);
+			element->OnRender(gs);
+			ScanChilds(element, gs);
 		}
+	}
+	void UISystem::Go(const GraphicSystem& gs)
+	{
+		ScanChilds(&screen, gs);
+	}
+	UIEventCaller& UISystem::GetEventCaller()
+	{
+		return m_caller;
 	}
 }

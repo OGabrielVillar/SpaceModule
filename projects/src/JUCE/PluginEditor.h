@@ -33,7 +33,7 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     SpaceModuleAudioProcessor& audioProcessor;
-    glm::vec<2, int, glm::qualifier::defaultp> mouse_position;
+    glm::vec2 mouse_position;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpaceModuleAudioProcessorEditor)
 };

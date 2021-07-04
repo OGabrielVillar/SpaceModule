@@ -4,6 +4,7 @@
 
 #include "SpaceModule/s_ui_system/UILayout.h"
 #include "SpaceModule/s_graphic_system/GraphicSystem.h"
+#include "SpaceModule/s_input_system/Command.h"
 
 namespace SpaceModule
 {
@@ -19,25 +20,32 @@ namespace SpaceModule
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate(float ft) {}
-		virtual void OnRender(GraphicSystem& const s_g) {}
+		virtual void OnRender(const GraphicSystem& s_g) {}
 		//virtual void OnEvent(Event & event) {}
 
-		//setters
+	//setters
 		void SetCustomName(const std::string&);
 		void SetLayoutSnap(XSnap x_snap_in, YSnap y_snap_in);
 		void SetSize(float x, float y);
-		void SetSize(glm::vec2& const);
-		void SetLayoutDistance(glm::vec2& const);
+		void SetSize(const glm::vec2&);
+		void SetLayoutDistance(const glm::vec2&);
 		void SetParent(UIElement*);
 		void SetSizeAutoSnap(bool);
 		void SetXSizeAutoSnap(bool);
 		void SetYSizeAutoSnap(bool);
-
-		//getters
+	//getters
 		glm::vec2 GetTopLeft() const;
 		const std::string& GetName() const { return m_customName; }
+		layerstack<UIElement*>& GetChilds();
+	//input:
+		virtual bool CommandCall(InputInfoFinal<UIElement>&) { return false; }
+		virtual void ReleaseCall(InputInfoFinal<UIElement>&) {}
+		virtual void DragCall(const vec2&) {}
 
-		//autos
+	//function
+		bool HitTest(float x_in, float y_in);
+
+	//autos
 		void GenerateTopRight();
 	private:
 		void RearrangeChilds();
@@ -45,15 +53,21 @@ namespace SpaceModule
 		void XSizeAutoSnap();
 		void YSizeAutoSnap();
 
+
 	protected: //
 		glm::vec2 size;
 		UILayout layout;
 		UIElement* parent;
-		std::vector<UIElement*> childs;
+		layerstack<UIElement*> childs;
 		std::string m_customName;
 
 		bool x_size_autosnap = false; ///Snaps to the opposite side of the parent
 		bool y_size_autosnap = false; ///Snaps to the opposite side of the parent
+
+		bool mouseBlock = false;
+		bool mouseLeftButtonBlock = false;
+		bool mouseRightButtonBlock = false;
+		bool mouseMiddleButtonBlock = false;
 	};
 
 }

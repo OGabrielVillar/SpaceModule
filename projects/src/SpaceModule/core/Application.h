@@ -18,6 +18,8 @@ namespace SpaceModule
 	protected: // application core
 		NodeSystem* s_NodeSystem = nullptr;
 		UISystem* s_UISystem = nullptr;
+	public:
+		InputSystem* s_InputSystem = nullptr;
 	};
 
 }

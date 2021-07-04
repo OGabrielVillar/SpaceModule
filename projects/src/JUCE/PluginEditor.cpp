@@ -43,7 +43,7 @@ void SpaceModuleAudioProcessorEditor::paint (juce::Graphics& g)
 
     g.setColour(juce::Colour(testColor.r, testColor.g, testColor.b));
     
-    g.fillRect(mouse_position.x, mouse_position.y, 10, 10);
+    g.fillRect((int)mouse_position.x, (int)mouse_position.y, 10, 10);
 
 }
 
@@ -57,8 +57,11 @@ void SpaceModuleAudioProcessorEditor::resized()
 
 void SpaceModuleAudioProcessorEditor::mouseMove(const juce::MouseEvent& event)
 {
-    mouse_position.x = event.getPosition().x;
-    mouse_position.y = event.getPosition().y;
+    mouse_position.x = (float)event.getPosition().x;
+    mouse_position.y = (float)event.getPosition().y;
+
+    m_App->s_InputSystem->OnMouseMovement(mouse_position);
+
     repaint();
 }
 
@@ -68,6 +71,13 @@ void SpaceModuleAudioProcessorEditor::mouseDown(const juce::MouseEvent& event)
     mouse_position.x = event.getPosition().x;
     mouse_position.y = event.getPosition().y;
     
+    if (event.mods.isLeftButtonDown())
+    {
+        using namespace SpaceModule::Input;
+        SpaceModule::InputInfo info(InputCode::MS_LeftButton,InputType::Press,event.position.x, event.position.y);
+        m_App->s_InputSystem->InputEvent(info);
+    }
+
     repaint();
 }
 
@@ -76,6 +86,13 @@ void SpaceModuleAudioProcessorEditor::mouseUp(const juce::MouseEvent& event)
     testColor = SpaceModule::rgb(155, 50, 155);
     mouse_position.x = event.getPosition().x;
     mouse_position.y = event.getPosition().y;
+
+    if (event.mods.isLeftButtonDown())
+    {
+        using namespace SpaceModule::Input;
+        SpaceModule::InputInfo info(InputCode::MS_LeftButton, InputType::Release, event.position.x, event.position.y);
+        m_App->s_InputSystem->InputEvent(info);
+    }
 
     repaint();
 }

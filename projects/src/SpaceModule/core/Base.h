@@ -1,7 +1,9 @@
 #pragma once
 
 #include <memory>
+
 #include "SpaceModule/math/Math.h"
+#include "SpaceModule/utils/layerstack.h"
 
 #define BIT(x) (1 << x)
 
@@ -20,4 +22,7 @@ namespace SpaceModule {
 	using u8vec4 = glm::u8vec4;
 	using rgb    = glm::u8vec3;
 	using rgba   = glm::u8vec4;
+
+	template<typename T>
+	using layerstack = utl::layerstack<T>;
 }

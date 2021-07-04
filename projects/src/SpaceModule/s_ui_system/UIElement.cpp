@@ -61,19 +61,25 @@ namespace SpaceModule
 
 	}
 
-	void UIElement::SetSize(glm::vec2& const size_in)
+	void UIElement::SetSize(const glm::vec2& size_in)
 	{
 		SetSize(size_in.x, size_in.y);
 	}
 
-	void UIElement::SetLayoutDistance(glm::vec2& const dist_in)
+	void UIElement::SetLayoutDistance(const glm::vec2& dist_in)
 	{
 		layout.distance = dist_in;
+		GenerateTopRight();
 	}
 
 	glm::vec2 UIElement::GetTopLeft() const
 	{
 		return layout.top_right;
+	}
+
+	layerstack<UIElement*>& UIElement::GetChilds()
+	{
+		return childs;
 	}
 
 	void UIElement::GenerateTopRight()
@@ -109,7 +115,7 @@ namespace SpaceModule
 	void UIElement::SetParent(UIElement* element_in)
 	{
 		parent = element_in;
-		element_in->childs.push_back(this);
+		element_in->childs.insert(this);
 		GenerateTopRight();
 	}
 
@@ -162,6 +168,16 @@ namespace SpaceModule
 	void UIElement::YSizeAutoSnap()
 	{
 		size.y = parent->size.y - layout.distance.y;
+	}
+
+	bool UIElement::HitTest(float x_in, float y_in)
+	{
+		if (x_in < layout.top_right_stack.x || x_in >= layout.top_right_stack.x + size.x
+		 || y_in < layout.top_right_stack.y || y_in >= layout.top_right_stack.y + size.y)
+		{
+			return false;
+		}
+		return true;
 	}
 
 }
