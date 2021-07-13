@@ -170,7 +170,11 @@ namespace SpaceModule
 		size.y = parent->size.y - layout.distance.y;
 	}
 
-	bool UIElement::HitTest(float x_in, float y_in)
+	bool UIElement::HitTest(const vec2& pos_in) const
+	{
+		return HitTest(pos_in.x, pos_in.y);
+	}
+	bool UIElement::HitTest(float x_in, float y_in) const
 	{
 		if (x_in < layout.top_right_stack.x || x_in >= layout.top_right_stack.x + size.x
 		 || y_in < layout.top_right_stack.y || y_in >= layout.top_right_stack.y + size.y)

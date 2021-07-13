@@ -7,6 +7,18 @@
 
 namespace SpaceModule
 {
+
+	enum class cmd_flags : uint32_t {
+		getReleaseInfo = BIT(0),
+		getDragInfo = BIT(1),
+		showInHelpBar = BIT(2),
+		showInKeyBindingList = BIT(3)
+	};
+	inline cmd_flags operator|(cmd_flags a, cmd_flags b)
+	{
+		return static_cast<cmd_flags>(static_cast<uint32_t>(a) | static_cast<uint32_t>(b));
+	}
+
 	class Command
 	{
 	public:
@@ -20,18 +32,13 @@ namespace SpaceModule
 		void SetUpTemplate(Input::CommandTemplate);
 	
 	protected:
-		Input::InputCode        m_inputBind;
-		std::string      m_name;
-
-		bool             getReleaseInfo = 0;
-		bool             getDragInfo = 0;
-
-		bool             showInHelpBar = 0;
-		bool             showInKeyBindingList = 0;
+		Input::InputCode m_bind;
+		string m_name;
+		cmd_flags m_flags;
 
 	public:
-		float            x_preDrag;
-		float            y_preDrag;
+		float x_preDrag;
+		float y_preDrag;
 
 	};
 

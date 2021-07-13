@@ -13,7 +13,7 @@ namespace SpaceModule
 	{ None, Float, Vec2, Vec3, Vec4, Mat4, Audio, Texture };
 
 	enum class NodeType 
-	{ None, AudioIn, AudioOut, MIDIIn, MIDIOut, Pattern, ASDR, LFO, Oscillator, Synth, Math };
+	{ None, AudioIn, AudioOut, MIDIIn, MIDIOut, Pattern, ASDR, LFO, Oscillator, Synth, Math, Gain };
 
 }
 
@@ -41,6 +41,7 @@ namespace SpaceModule
 		//virtual void OnRender(GraphicSystem& const gs) = 0;
 
 		const NodeType& GetNodeType() const { return m_type; }
+		bool operator==(NodeType type_in) const { return m_type == type_in; }
 
 	protected: // node core
 		NodeType m_type;

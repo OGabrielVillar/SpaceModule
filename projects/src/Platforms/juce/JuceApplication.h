@@ -2,7 +2,6 @@
 
 #include "SpaceModule/core/Application.h"
 
-#include "AppComponent.h"
 #include "JuceGraphicSystem.h"
 
 class JuceApplication : public SpaceModule::Application
@@ -12,7 +11,8 @@ public:
 	~JuceApplication();
 
 	void Go(juce::Graphics& const g);
+	void ProcessAudioSignal(float&);
 public:
 	JuceGraphicSystem* s_JuceGraphicSystem;
-	AppComponent comp;
+	float* m_gain = nullptr;
 };

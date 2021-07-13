@@ -15,8 +15,7 @@ namespace SpaceModule
 		virtual void Go();
 		void WhenResized(float x_in, float y_in);
 
-	protected: // application core
-		NodeSystem* s_NodeSystem = nullptr;
+	public: // application core
 		UISystem* s_UISystem = nullptr;
 	public:
 		InputSystem* s_InputSystem = nullptr;

@@ -9,6 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "Platforms/juce/JuceApplication.h"
 
 //==============================================================================
 /**
@@ -53,8 +54,14 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    //==============================================================================
+    void LinkApp(JuceApplication* app_in) { m_app = app_in; }
+
 private:
     juce::Synthesiser synth;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpaceModuleAudioProcessor)
+
+private:
+    JuceApplication* m_app = nullptr;
 };

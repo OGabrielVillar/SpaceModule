@@ -7,6 +7,8 @@
 #include "SpaceModule/s_ui_system/UIElement.h"
 #include "ui_elements/include_ui_elements.h"
 #include "SpaceModule/s_ui_system/UIEventCaller.h"
+#include "SpaceModule/s_ui_system/ui_elements/ui_Background.h"
+#include "SpaceModule/s_node_system/NodeSpace.h"
 
 namespace SpaceModule
 {
@@ -18,21 +20,20 @@ namespace SpaceModule
 		~UISystem();
 	
 		void WhenResized(float x_in, float y_in);
-		UIElement* PushElement(UIElement* element);
-		void PushOverlay(UIElement* overlay);
-		void PopElement(UIElement* element);
-		void PopOverlay(UIElement* overlay);
+		UIElement* PushElement(UIElement* element_in);
+		Node* PushNode(Node* node_in);
 	
 		void Go(const GraphicSystem&);
+		void ProcessAudioSignal(float& signal_in);
 		void ScanChilds(UIElement*, const GraphicSystem&) const;
 
 		UIEventCaller& GetEventCaller();
 	private: // node system core
-		std::vector<UIElement*> m_elements;
-		unsigned int m_ElementInsertIndex = 0;
 		UIEventCaller m_caller;
-	public:	
-		UIElement screen;
+
+	private:	
+		UI::Background screen;
+		NodeSpace nodeSpace;
 	};
 
 };

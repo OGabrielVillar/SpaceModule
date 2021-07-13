@@ -133,11 +133,11 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\SpaceModule\math\angle.h" />
     <ClInclude Include="src\SpaceModule\s_input_system\InputSystem.h" />
     <ClInclude Include="src\SpaceModule\s_input_system\Command.h" />
     <ClInclude Include="src\Platforms\juce\JuceApplication.h" />
     <ClInclude Include="src\Platforms\juce\JuceGraphicSystem.h" />
-    <ClInclude Include="src\Platforms\juce\AppComponent.h" />
     <ClInclude Include="src\SpaceModule\core\Layer.h" />
     <ClInclude Include="src\SpaceModule\core\SystemsHeader.h" />
     <ClInclude Include="src\SpaceModule\s_graphic_system\Color.h" />
@@ -148,17 +148,22 @@
     <ClInclude Include="src\SpaceModule\math\Math.h" />
     <ClInclude Include="src\SpaceModule\s_input_system\CommandList.h" />
     <ClInclude Include="src\SpaceModule\s_input_system\InputSignal.h" />
+    <ClInclude Include="src\SpaceModule\s_node_system\NodeSpace.h" />
     <ClInclude Include="src\SpaceModule\s_node_system\nodes\ASDRNode.h" />
     <ClInclude Include="src\SpaceModule\s_input_system\EventCaller.h" />
+    <ClInclude Include="src\SpaceModule\s_node_system\nodes\GainNode.h" />
+    <ClInclude Include="src\SpaceModule\s_node_system\nodes\include.h" />
     <ClInclude Include="src\SpaceModule\s_ui_system\UIEventCaller.h" />
     <ClInclude Include="src\SpaceModule\s_ui_system\UISystem.h" />
     <ClInclude Include="src\SpaceModule\s_ui_system\UIElement.h" />
     <ClInclude Include="src\SpaceModule\s_ui_system\UIField.h" />
     <ClInclude Include="src\SpaceModule\s_ui_system\UILayout.h" />
     <ClInclude Include="src\SpaceModule\s_ui_system\ui_elements\include_ui_elements.h" />
+    <ClInclude Include="src\SpaceModule\s_ui_system\ui_elements\ui_Background.h" />
     <ClInclude Include="src\SpaceModule\s_ui_system\ui_elements\ui_Knob.h" />
     <ClInclude Include="src\SpaceModule\utils\layerstack.h" />
     <ClInclude Include="src\SpaceModule\utils\random.h" />
+    <ClInclude Include="src\SpaceModule\utils\time.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
@@ -1321,7 +1326,6 @@
     <ClInclude Include="vendor\juce\juce_gui_extra\juce_gui_extra.h" />
     <ClInclude Include="vendor\juce\juce_library_code\JuceHeader.h" />
     <ClInclude Include="vendor\juce\juce_library_code\JucePluginDefines.h" />
-    <ClInclude Include="src\SpaceModule\s_node_system\NodeSystem.h" />
     <ClInclude Include="src\SpaceModule\s_node_system\Node.h" />
     <ClInclude Include="src\SpaceModule\synth\SynthSound.h" />
     <ClInclude Include="src\SpaceModule\synth\SynthVoice.h" />
@@ -1333,16 +1337,17 @@
     <ClCompile Include="src\SpaceModule\s_input_system\Command.cpp" />
     <ClCompile Include="src\Platforms\juce\JuceApplication.cpp" />
     <ClCompile Include="src\Platforms\juce\JuceGraphicSystem.cpp" />
-    <ClCompile Include="src\Platforms\juce\AppComponent.cpp" />
     <ClCompile Include="src\SpaceModule\core\Layer.cpp" />
-    <ClCompile Include="src\SpaceModule\s_graphic_system\GraphicSystem.cpp" />
     <ClCompile Include="src\SpaceModule\core\Application.cpp" />
+    <ClCompile Include="src\SpaceModule\s_node_system\NodeSpace.cpp" />
     <ClCompile Include="src\SpaceModule\s_node_system\nodes\ASDRNode.cpp" />
+    <ClCompile Include="src\SpaceModule\s_node_system\nodes\GainNode.cpp" />
     <ClCompile Include="src\SpaceModule\s_ui_system\UIEventCaller.cpp" />
     <ClCompile Include="src\SpaceModule\s_ui_system\UILayout.cpp" />
     <ClCompile Include="src\SpaceModule\s_ui_system\UISystem.cpp" />
     <ClCompile Include="src\SpaceModule\s_ui_system\UIElement.cpp" />
     <ClCompile Include="src\SpaceModule\s_ui_system\UIField.cpp" />
+    <ClCompile Include="src\SpaceModule\s_ui_system\ui_elements\ui_Background.cpp" />
     <ClCompile Include="src\SpaceModule\s_ui_system\ui_elements\ui_Knob.cpp" />
     <ClCompile Include="src\SpaceModule\utils\random.cpp" />
     <ClCompile Include="vendor\juce\juce_library_code\include_juce_audio_basics.cpp" />
@@ -1357,7 +1362,6 @@
     <ClCompile Include="vendor\juce\juce_library_code\include_juce_graphics.cpp" />
     <ClCompile Include="vendor\juce\juce_library_code\include_juce_gui_basics.cpp" />
     <ClCompile Include="vendor\juce\juce_library_code\include_juce_gui_extra.cpp" />
-    <ClCompile Include="src\SpaceModule\s_node_system\NodeSystem.cpp" />
     <ClCompile Include="src\SpaceModule\s_node_system\Node.cpp" />
     <ClCompile Include="src\SpaceModule\synth\SynthSound.cpp" />
     <ClCompile Include="src\SpaceModule\synth\SynthVoice.cpp" />

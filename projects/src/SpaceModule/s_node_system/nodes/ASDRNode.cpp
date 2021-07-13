@@ -1,6 +1,6 @@
 #include "ASDRNode.h"
 
-namespace SpaceModule
+namespace SpaceModule::Nodes
 {
     ASDRNode::ASDRNode()
         : Node(NodeType::ASDR)

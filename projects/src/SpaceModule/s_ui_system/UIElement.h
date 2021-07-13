@@ -43,7 +43,8 @@ namespace SpaceModule
 		virtual void DragCall(const vec2&) {}
 
 	//function
-		bool HitTest(float x_in, float y_in);
+		bool HitTest(float x_in, float y_in) const;
+		bool HitTest(const vec2&) const;
 
 	//autos
 		void GenerateTopRight();

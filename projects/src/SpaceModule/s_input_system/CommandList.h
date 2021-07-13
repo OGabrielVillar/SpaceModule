@@ -14,7 +14,8 @@ namespace SpaceModule
 		enum class CommandTemplate : unsigned int {
 			None = 0,
 			ui_ButtonPress = 100,
-			ui_KnobModifyValue = 101
+			ui_KnobModifyValue = 101,
+			ui_PrintTimer = 102
 		};
 	}
 }

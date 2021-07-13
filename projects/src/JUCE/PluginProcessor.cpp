@@ -151,20 +151,25 @@ void SpaceModuleAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
+    if (m_app){
 
-        // ..do something to the data...
-    }
+        for (int channel = 0; channel < totalNumInputChannels; ++channel)
+        {
+            auto* channelData = buffer.getWritePointer (channel);
+
+            for (int sample = 0; sample  < buffer.getNumSamples(); sample ++)
+            {
+                m_app->ProcessAudioSignal(channelData[sample]);
+            }
+        }
     
+    }
+
     for (size_t i = 0; i < synth.getNumVoices(); i++)
     {
         if (auto voice = dynamic_cast<juce::SynthesiserVoice*>(synth.getVoice(i)))
         {
-            //Osc controls
-            //ADSR
-            //LFO
+
         }
     }
 

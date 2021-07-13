@@ -2,7 +2,7 @@
 
 #include "SpaceModule/s_node_system/Node.h"
 
-namespace SpaceModule
+namespace SpaceModule::Nodes
 {
 
     class ASDRNode :
