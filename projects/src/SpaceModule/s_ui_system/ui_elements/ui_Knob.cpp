@@ -13,9 +13,9 @@ namespace SpaceModule
 			//SetLayoutDistance(vec2(100.0f, 100.0f));
 
 			mouseBlock = true;
-			mouseLeftButtonBlock = true;
+			mouseLeftButtonBlock = true; 
+			SetValue(0.5f);
 
-			m_color = rgb(200, 200, 100);
 		}
 		Knob::Knob(float size_in)
 			: Knob()
@@ -29,7 +29,7 @@ namespace SpaceModule
 		{
 			s_g.DrawEllipse(layout.top_right_stack.x, layout.top_right_stack.y, size.x,size.y, 3.0f, m_color);
 			vec2 center = layout.top_right_stack + size / 2.0f;
-			vec2 end = rotate(vec2(0.f, size.x * 0.5f),m_knobAngle) + center;
+			vec2 end = rotate( vec2( 0.f, size.x * 0.5f ), m_knobAngle ) + center;
 			s_g.DrawLine(center, end , 3.f, m_color);
 		}
 		void Knob::ModifyValueDrag()
@@ -45,6 +45,18 @@ namespace SpaceModule
 		{
 			pressed = false;
 			//m_color = rgb(100, 200, 200);
+		}
+
+		void Knob::SetValue(float in)
+		{
+			m_value = in;
+			m_value <= 1.f ? m_value >= 0.f ? m_value : m_value = 0.f : m_value = 1.f;
+
+			m_knobAngle = angle( (degrees)( 360.0f * m_value ) );
+
+			vec3 min_max_diff(m_color_max - m_color_min);
+			vec3 color_change(m_value * min_max_diff);
+			m_color = rgb(m_color_min + color_change);
 		}
 
 		float Knob::GetValue() const
@@ -63,7 +75,6 @@ namespace SpaceModule
 					info_in.object = this;
 					cmd_modifyValue.y_preDrag = info_in.ms_y;
 					ModifyValuePress();
-					m_color.g = 150;
 					m_knobAnglePreDrag = m_knobAngle;
 					return true;
 
@@ -76,7 +87,6 @@ namespace SpaceModule
 			if (info_in.code == cmd_modifyValue.GetCode()){
 				ModifyValueRelease();
 				info_in.get_drag_info = false;
-				m_color.g = 200;
 
 				if (!HitTest(info_in.ms_x, info_in.ms_y)) {
 				}
@@ -86,23 +96,7 @@ namespace SpaceModule
 		void Knob::DragCall(const vec2& msPos_in)
 		{
 			float mod = cmd_modifyValue.y_preDrag - msPos_in.y ;
-			m_value = mod * 0.004f + m_valuePreDrag;
-			if (m_value > 1.f){
-				m_value = 1.f;
-			}
-			else if (m_value < 0.f){
-				m_value = 0.f;
-			}
-
-			m_knobAngle = angle((degrees)(360.0f*(m_value)));
-			m_color.r = uint8_t(m_value * 255.f);
-			if (HitTest(msPos_in)){
-				m_color.g = 150;
-			}
-			else
-			{
-				m_color.g = 200;
-			}
+			SetValue(mod * 0.004f + m_valuePreDrag);
 		}
 	}
 }

@@ -29,10 +29,6 @@ namespace SpaceModule
 			Node* node;
 			SignalSlot* connectedTo;
 		};
-		struct Slot {
-			float slotHeight;
-			//UIElement;
-		};
 
 	public:
 		Node(NodeType nodetype_in);
@@ -47,11 +43,7 @@ namespace SpaceModule
 		NodeType m_type;
 		float width;
 		float height;
-		std::vector<Slot> m_slots;
-		std::vector<SignalSlot> signal_inputs;
-		std::vector<SignalSlot> signal_outputs;
-		
-		
+
 	};
 	
 }

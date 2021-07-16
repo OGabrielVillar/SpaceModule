@@ -7,7 +7,7 @@ namespace SpaceModule
 		SetXSizeAutoSnap(true);
 		SetYSizeAutoSnap(true);
 	}
-	void NodeSpace::ProcessAudioSignal(float& data_in)
+	void NodeSpace::ProcessAudioSignal(SpaceModule::audiobuffer& data_in)
 	{
 		for (UIElement* element : childs)
 		{

@@ -49,6 +49,11 @@ namespace SpaceModule
             m_bind = Input::InputCode::MS_RightButton;
             m_name = "Print Timer";
             break;
+        case(Input::CommandTemplate::ui_DragWindow):
+            m_bind = Input::InputCode::MS_LeftButton;
+            m_name = "Drag Window";
+            m_flags = cmd_flags::getReleaseInfo | cmd_flags::getDragInfo;
+            break;
         default:
             break;
         }

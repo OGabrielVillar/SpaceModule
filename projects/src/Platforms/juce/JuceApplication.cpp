@@ -27,7 +27,7 @@ void JuceApplication::Go(juce::Graphics& const g)
 	s_UISystem->Go(*s_JuceGraphicSystem);
 }
 
-void JuceApplication::ProcessAudioSignal(float& in)
+void JuceApplication::ProcessAudioSignal(SpaceModule::audiobuffer& in)
 {
 	s_UISystem->ProcessAudioSignal(in);
 }

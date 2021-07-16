@@ -11,7 +11,7 @@ public:
 	~JuceApplication();
 
 	void Go(juce::Graphics& const g);
-	void ProcessAudioSignal(float&);
+	void ProcessAudioSignal(SpaceModule::audiobuffer&);
 public:
 	JuceGraphicSystem* s_JuceGraphicSystem;
 	float* m_gain = nullptr;

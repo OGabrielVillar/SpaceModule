@@ -70,6 +70,7 @@ namespace SpaceModule
 	{
 		layout.distance = dist_in;
 		GenerateTopRight();
+		RearrangeChilds();
 	}
 
 	glm::vec2 UIElement::GetTopLeft() const

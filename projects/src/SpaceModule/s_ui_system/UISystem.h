@@ -24,7 +24,7 @@ namespace SpaceModule
 		Node* PushNode(Node* node_in);
 	
 		void Go(const GraphicSystem&);
-		void ProcessAudioSignal(float& signal_in);
+		void ProcessAudioSignal(SpaceModule::audiobuffer& signal_in);
 		void ScanChilds(UIElement*, const GraphicSystem&) const;
 
 		UIEventCaller& GetEventCaller();

@@ -53,7 +53,7 @@ namespace SpaceModule
 		return m_caller;
 	}
 
-	void UISystem::ProcessAudioSignal(float& signal_in)
+	void UISystem::ProcessAudioSignal(SpaceModule::audiobuffer& signal_in)
 	{
 		nodeSpace.ProcessAudioSignal(signal_in);
 	}

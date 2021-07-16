@@ -12,32 +12,37 @@ namespace SpaceModule
 
 		class Knob : public UIElement
 		{
-		public:
-			Knob();
-			Knob(float size_in);
-			~Knob();
-
-			virtual void OnRender(const GraphicSystem& s_g) override;
-
-			virtual bool CommandCall(InputInfoFinal<UIElement>&) override;
-			virtual void ReleaseCall(InputInfoFinal<UIElement>&) override;
-			virtual void DragCall(const vec2&) override;
-
-			void ModifyValueDrag();
-			void ModifyValuePress();
-			void ModifyValueRelease();
-
-			float GetValue() const;
-		private:
-			rgb m_color;
-			bool pressed = false;
-			float m_value;
-			float m_valuePreDrag = 0.5f;
-			float m_radius;
-			Command cmd_modifyValue;
-
-			angle m_knobAngle = angle((degrees)180.f);
-			angle m_knobAnglePreDrag = angle();
+		 public:
+		 	Knob();
+		 	Knob(float size_in);
+		 	~Knob();
+		 
+		 	virtual void OnRender(const GraphicSystem& s_g) override;
+		 
+		 	virtual bool CommandCall(InputInfoFinal<UIElement>&) override;
+		 	virtual void ReleaseCall(InputInfoFinal<UIElement>&) override;
+		 	virtual void DragCall(const vec2&) override;
+		 
+		 	void ModifyValueDrag();
+		 	void ModifyValuePress();
+		 	void ModifyValueRelease();
+		 
+			void SetValue(float in);
+		 	float GetValue() const;
+		 private:
+		 	bool pressed = false;
+		 	float m_value;
+		 	float m_valuePreDrag = 0.5f;
+		 	float m_radius;
+		 	Command cmd_modifyValue;
+		 
+		 	angle m_knobAngle = angle((degrees)180.f);
+		 	angle m_knobAnglePreDrag = angle();
+		 private:
+			rgb m_color     = { 15, 15, 15 };
+		    vec3 m_color_min = { 15.f, 15.f, 15.f };
+		    vec3 m_color_max = { 30.f, 30.f, 30.f };
+			float m_pressedColor = 0.8f;
 		};
 
 	}

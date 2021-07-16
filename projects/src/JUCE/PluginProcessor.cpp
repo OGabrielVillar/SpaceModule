@@ -151,18 +151,10 @@ void SpaceModuleAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    if (m_app){
-
-        for (int channel = 0; channel < totalNumInputChannels; ++channel)
-        {
-            auto* channelData = buffer.getWritePointer (channel);
-
-            for (int sample = 0; sample  < buffer.getNumSamples(); sample ++)
-            {
-                m_app->ProcessAudioSignal(channelData[sample]);
-            }
-        }
-    
+    if (m_app) {
+        SpaceModule::AudioSettings::SetSampleRate((float)getSampleRate());
+        SpaceModule::audiobuffer SM_buffer(*buffer.getWritePointer(0), totalNumInputChannels, buffer.getNumSamples());
+        m_app->ProcessAudioSignal(SM_buffer);
     }
 
     for (size_t i = 0; i < synth.getNumVoices(); i++)

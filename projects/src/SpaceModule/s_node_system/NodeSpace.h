@@ -2,7 +2,6 @@
 
 #include "nodes/include.h"
 
-
 namespace SpaceModule
 {
 	struct Camera {
@@ -16,7 +15,7 @@ namespace SpaceModule
 		NodeSpace();
 		~NodeSpace() = default;
 
-		void ProcessAudioSignal(float& in);
+		void ProcessAudioSignal(SpaceModule::audiobuffer& in);
 
 	private:
 		Camera camera;
