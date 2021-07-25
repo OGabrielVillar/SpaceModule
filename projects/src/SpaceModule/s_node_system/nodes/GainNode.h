@@ -15,32 +15,24 @@ namespace SpaceModule::Nodes
         virtual void OnAttach() override;
         //virtual void OnDetach() override;
         ////virtual void OnUpdate(Timestep ts) override {{}
-        virtual void OnRender(const GraphicSystem& gs) override;
+        virtual void OnRender(const GraphicSystem& gs) const override;
         ////virtual void OnEvent(Event & event) override {{}
 
-        virtual bool CommandCall(InputInfoFinal<UIElement>&) override;
+        virtual bool PressCall(InputInfoFinal<UIElement>&) override;
         virtual void DragCall(const vec2&) override;
         virtual void ReleaseCall(InputInfoFinal<UIElement>& info_in) override;
 
+
         void ProcessAudioSignal(audiobuffer& in);
-        /** 
-        @TESTING
-        **/
 
      private:
-        const int knobs_amount = 4;
+        const int knobs_amount = 2;
         const float knobs_size = 50.f;
         const float knobs_spacing = 10.f;
         int knob_count = 1;
 
      private:
-        Command cmd_dragWindow;
-        vec2 dist_preDrag = { 0.f, 0.f };
-
-     private:
         UI::Knob* m_gainKnob;
-        UI::Knob* m_distKnob;
-        UI::Knob* m_randomKnob;
         UI::Knob* m_pitchKnob;
 
      private:
@@ -49,8 +41,9 @@ namespace SpaceModule::Nodes
         string hzLabel;
 
      private:
-         rgb bg_color      = { 63, 63, 63 };
-         rgb outline_color = { 231, 231, 231 };
+         rgb lo_bg_color      = { 40, 40, 40 };
+         rgb lo_outline_color = { 15, 15, 15 };
+         rgb lo_title_color = { 180, 180, 180 };
 
     };
 

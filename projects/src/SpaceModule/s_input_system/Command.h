@@ -47,10 +47,12 @@ namespace SpaceModule
 	struct InputInfo {
 		InputInfo() : code(Input::InputCode::None), type(Input::InputType::Release), ms_x(), ms_y() {}
 		InputInfo(Input::InputCode code_in, Input::InputType type_in, float x_in, float y_in) : code(code_in), type(type_in), ms_x(x_in), ms_y(y_in) {}
+
 		Input::InputCode code;
 		Input::InputType type;
 		float ms_x;
 		float ms_y;
+
 	};
 	////////////
 	template <typename T>
@@ -58,12 +60,15 @@ namespace SpaceModule
 		InputInfoFinal() : code(Input::InputCode::None), type(Input::InputType::Release), ms_x(), ms_y() {}
 		InputInfoFinal(Input::InputCode code_in, Input::InputType type_in, float x_in, float y_in) : code(code_in), type(type_in), ms_x(x_in), ms_y(y_in) {}
 		InputInfoFinal& operator =(const InputInfo& info_in) { code = info_in.code; type = info_in.type; ms_x = info_in.ms_x; ms_y = info_in.ms_y; return *this; }
+
 		Input::InputCode code;
 		Input::InputType type;
 		float ms_x;
 		float ms_y;
+
 		bool wait_for_release = false;
 		bool get_drag_info = false;
 		T* object = nullptr;
+
 	};
 }

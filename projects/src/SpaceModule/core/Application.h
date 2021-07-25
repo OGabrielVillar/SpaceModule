@@ -12,7 +12,7 @@ namespace SpaceModule
 		Application();
 		~Application();
 
-		virtual void Go();
+		virtual void Render();
 		void WhenResized(float x_in, float y_in);
 
 	public: // application core

@@ -25,10 +25,10 @@ namespace SpaceModule
 		Knob::~Knob()
 		{
 		}
-		void Knob::OnRender(const GraphicSystem& s_g)
+		void Knob::OnRender(const GraphicSystem& s_g) const
 		{
-			s_g.DrawEllipse(layout.top_right_stack.x, layout.top_right_stack.y, size.x,size.y, 3.0f, m_color);
-			vec2 center = layout.top_right_stack + size / 2.0f;
+			s_g.DrawEllipse(layout.top_left_stack.x, layout.top_left_stack.y, size.x,size.y, 3.0f, m_color);
+			vec2 center = layout.top_left_stack + size / 2.0f;
 			vec2 end = rotate( vec2( 0.f, size.x * 0.5f ), m_knobAngle ) + center;
 			s_g.DrawLine(center, end , 3.f, m_color);
 		}
@@ -55,7 +55,7 @@ namespace SpaceModule
 			m_knobAngle = angle( (degrees)( 360.0f * m_value ) );
 
 			vec3 min_max_diff(m_color_max - m_color_min);
-			vec3 color_change(m_value * min_max_diff);
+			vec3 color_change((1.f - m_value) * min_max_diff);
 			m_color = rgb(m_color_min + color_change);
 		}
 
@@ -64,7 +64,7 @@ namespace SpaceModule
 			return m_value;
 		}
 
-		bool Knob::CommandCall(InputInfoFinal<UIElement>& info_in){
+		bool Knob::PressCall(InputInfoFinal<UIElement>& info_in){
 			if (info_in.code == cmd_modifyValue.GetCode()){
 				if (!HitTest(info_in.ms_x, info_in.ms_y)) 
 					return false;

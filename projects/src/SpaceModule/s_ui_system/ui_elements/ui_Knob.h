@@ -17,9 +17,9 @@ namespace SpaceModule
 		 	Knob(float size_in);
 		 	~Knob();
 		 
-		 	virtual void OnRender(const GraphicSystem& s_g) override;
+		 	virtual void OnRender(const GraphicSystem& s_g) const override;
 		 
-		 	virtual bool CommandCall(InputInfoFinal<UIElement>&) override;
+		 	virtual bool PressCall(InputInfoFinal<UIElement>&) override;
 		 	virtual void ReleaseCall(InputInfoFinal<UIElement>&) override;
 		 	virtual void DragCall(const vec2&) override;
 		 

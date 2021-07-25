@@ -58,7 +58,7 @@ namespace SpaceModule
 		{
 			RearrangeChilds();
 		}
-
+		OnResize();
 	}
 
 	void UIElement::SetSize(const glm::vec2& size_in)
@@ -75,7 +75,7 @@ namespace SpaceModule
 
 	glm::vec2 UIElement::GetTopLeft() const
 	{
-		return layout.top_right;
+		return layout.top_left;
 	}
 
 	layerstack<UIElement*>& UIElement::GetChilds()
@@ -88,29 +88,29 @@ namespace SpaceModule
 		switch (layout.x_snap)
 		{
 			case XSnap::Left:
-				layout.top_right.x = layout.distance.x;
+				layout.top_left.x = layout.distance.x;
 				break;
 			case XSnap::Center:
-				layout.top_right.x = layout.distance.x + (parent->size.x * 0.5f) - (size.x * 0.5f);
+				layout.top_left.x = layout.distance.x + (parent->size.x * 0.5f) - (size.x * 0.5f);
 				break;
 			case XSnap::Right:
-				layout.top_right.x = -layout.distance.x + parent->size.x - size.x;
+				layout.top_left.x = -layout.distance.x + parent->size.x - size.x;
 				break;
 				//TODO PARENT LOOK UP
 		}
 		switch (layout.y_snap)
 		{
 			case YSnap::Top:
-				layout.top_right.y = layout.distance.y;
+				layout.top_left.y = layout.distance.y;
 				break;
 			case YSnap::Center:
-				layout.top_right.y = layout.distance.y + (parent->size.y * 0.5f) - (size.y * 0.5f);
+				layout.top_left.y = layout.distance.y + (parent->size.y * 0.5f) - (size.y * 0.5f);
 				break;
 			case YSnap::Botton:
-				layout.top_right.y = layout.distance.y + parent->size.y - size.y;
+				layout.top_left.y = layout.distance.y + parent->size.y - size.y;
 				break;
 		}
-		layout.top_right_stack = parent->layout.top_right + layout.top_right;
+		layout.top_left_stack = parent->layout.top_left + layout.top_left;
 	}
 
 	void UIElement::SetParent(UIElement* element_in)
@@ -122,7 +122,8 @@ namespace SpaceModule
 
 	void UIElement::SetSizeAutoSnap(bool b_in)
 	{
-		x_size_autosnap = b_in;  y_size_autosnap = b_in;
+		x_size_autosnap = b_in;  
+		y_size_autosnap = b_in;
 	}
 
 	void UIElement::SetXSizeAutoSnap(bool b_in)
@@ -139,14 +140,7 @@ namespace SpaceModule
 	{
 		for (UIElement* child : childs)
 		{
-			if (child->x_size_autosnap)
-			{
-				child->XSizeAutoSnap();
-			}
-			if (child->y_size_autosnap)
-			{
-				child->YSizeAutoSnap();
-			}
+			child->CheckAutoSnap();
 			child->GenerateTopRight();
 			child->RearrangeChilds();
 		}
@@ -156,9 +150,22 @@ namespace SpaceModule
 	{
 		for (UIElement* child : childs)
 		{
-			child->layout.top_right_stack = layout.top_right + child->layout.top_right;
+			child->layout.top_left_stack = layout.top_left + child->layout.top_left;
 			child->RearrangeChildTopRightStack();
 		}
+	}
+
+	void UIElement::CheckAutoSnap()
+	{
+		if (x_size_autosnap)
+		{
+			XSizeAutoSnap();
+		}
+		if (y_size_autosnap)
+		{
+			YSizeAutoSnap();
+		}
+		OnResize();
 	}
 
 	void UIElement::XSizeAutoSnap()
@@ -177,8 +184,8 @@ namespace SpaceModule
 	}
 	bool UIElement::HitTest(float x_in, float y_in) const
 	{
-		if (x_in < layout.top_right_stack.x || x_in >= layout.top_right_stack.x + size.x
-		 || y_in < layout.top_right_stack.y || y_in >= layout.top_right_stack.y + size.y)
+		if (x_in < layout.top_left_stack.x || x_in >= layout.top_left_stack.x + size.x
+		 || y_in < layout.top_left_stack.y || y_in >= layout.top_left_stack.y + size.y)
 		{
 			return false;
 		}

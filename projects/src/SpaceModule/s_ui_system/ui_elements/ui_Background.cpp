@@ -14,11 +14,11 @@ namespace SpaceModule
 		Background::~Background()
 		{
 		}
-		void Background::OnRender(const GraphicSystem& s_g)
+		void Background::OnRender(const GraphicSystem& s_g) const
 		{
 			s_g.DrawString(m_value.c_str(),10,m_clickPos.x, m_clickPos.y, 100.f, 100.f, m_color);
 		}
-		bool Background::CommandCall(InputInfoFinal<UIElement>& info_in)
+		bool Background::PressCall(InputInfoFinal<UIElement>& info_in)
 		{
 			if (info_in.code == cmd_printTimer.GetCode()) {
 				if (info_in.type == Input::InputType::Press) {

@@ -11,6 +11,15 @@ namespace SpaceModule
 
 	class UIElement
 	{
+	protected:
+		struct SlopeBounds {
+			float margin = 10.f;
+			float top = 0.0f;
+			float left = 0.0f;
+			float bot = 0.0f;
+			float right = 0.0f;
+		};
+
 	public:
 		UIElement();
 		UIElement(UIElement* parent);
@@ -20,27 +29,31 @@ namespace SpaceModule
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate(float ft) {}
-		virtual void OnRender(const GraphicSystem& s_g) {}
+		virtual void OnRender(const GraphicSystem& s_g) const {}
+		virtual void OnResize() {}
 		//virtual void OnEvent(Event & event) {}
+
+	//input:
+		virtual bool PressCall(InputInfoFinal<UIElement>&) { return false; }
+		virtual void ReleaseCall(InputInfoFinal<UIElement>&) {}
+		virtual void DragCall(const vec2&) {}
 
 	//setters
 		void SetCustomName(const std::string&);
 		void SetLayoutSnap(XSnap x_snap_in, YSnap y_snap_in);
 		void SetSize(float x, float y);
-		void SetSize(const glm::vec2&);
-		void SetLayoutDistance(const glm::vec2&);
+		void SetSize(const vec2&);
+		void SetLayoutDistance(const vec2&);
 		void SetParent(UIElement*);
 		void SetSizeAutoSnap(bool);
 		void SetXSizeAutoSnap(bool);
 		void SetYSizeAutoSnap(bool);
 	//getters
-		glm::vec2 GetTopLeft() const;
-		const std::string& GetName() const { return m_customName; }
+		vec2 GetTopLeft() const;
+		const string& GetName() const { return m_customName; }
 		layerstack<UIElement*>& GetChilds();
-	//input:
-		virtual bool CommandCall(InputInfoFinal<UIElement>&) { return false; }
-		virtual void ReleaseCall(InputInfoFinal<UIElement>&) {}
-		virtual void DragCall(const vec2&) {}
+		const UILayout& GetLayout() { return layout; }
+		const vec2& GetSize() { return size; }
 
 	//function
 		bool HitTest(float x_in, float y_in) const;
@@ -51,16 +64,17 @@ namespace SpaceModule
 	private:
 		void RearrangeChilds();
 		void RearrangeChildTopRightStack();
+		void CheckAutoSnap();
 		void XSizeAutoSnap();
 		void YSizeAutoSnap();
 
 
 	protected: //
-		glm::vec2 size;
+		vec2 size;
 		UILayout layout;
 		UIElement* parent;
 		layerstack<UIElement*> childs;
-		std::string m_customName;
+		string m_customName;
 
 		bool x_size_autosnap = false; ///Snaps to the opposite side of the parent
 		bool y_size_autosnap = false; ///Snaps to the opposite side of the parent

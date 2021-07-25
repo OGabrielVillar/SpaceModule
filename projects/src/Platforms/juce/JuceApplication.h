@@ -10,7 +10,7 @@ public:
 	JuceApplication();
 	~JuceApplication();
 
-	void Go(juce::Graphics& const g);
+	void Render(juce::Graphics& const g);
 	void ProcessAudioSignal(SpaceModule::audiobuffer&);
 public:
 	JuceGraphicSystem* s_JuceGraphicSystem;

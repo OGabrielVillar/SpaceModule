@@ -15,7 +15,7 @@ namespace SpaceModule::Nodes
         virtual void OnAttach() override;
         //virtual void OnDetach() override;
 		////virtual void OnUpdate(Timestep ts) override {{}
-        virtual void OnRender(const GraphicSystem& gs) override;
+        virtual void OnRender(const GraphicSystem& gs) const override;
 		////virtual void OnEvent(Event & event) override {{}
     };
 

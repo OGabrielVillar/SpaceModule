@@ -32,6 +32,8 @@ namespace SpaceModule {
 
 	void UIEventCaller::ScanChilds(UIElement* element_in)
 	{
+		if (!element_in->HitTest(info.ms_x, info.ms_y))
+			return;
 		if (!element_in->GetChilds().empty()) {
 			for (layerstack<UIElement*>::RevIterator element = element_in->GetChilds().rbegin();
 			 element != element_in->GetChilds().rend(); element++){
@@ -41,7 +43,7 @@ namespace SpaceModule {
 			}
 		}
 		if (!handled) {
-			if (element_in->CommandCall(info))
+			if (element_in->PressCall(info))
 				handled = true;
 		}
 		return;

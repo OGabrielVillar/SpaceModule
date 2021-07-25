@@ -12,7 +12,7 @@ namespace SpaceModule
 	{
 		delete s_UISystem;
 	}
-	void Application::Go()
+	void Application::Render()
 	{
 	}
 	void Application::WhenResized(float x_in, float y_in)

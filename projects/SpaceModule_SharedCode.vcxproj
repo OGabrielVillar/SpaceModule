@@ -133,6 +133,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\JUCE\KeyManager.h" />
     <ClInclude Include="src\SpaceModule\math\angle.h" />
     <ClInclude Include="src\SpaceModule\s_audio_system\audio.h" />
     <ClInclude Include="src\SpaceModule\s_audio_system\audiobuffer.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="src\SpaceModule\s_audio_system\audiowaves.h" />
     <ClInclude Include="src\SpaceModule\s_audio_system\audio_configs.h" />
     <ClInclude Include="src\SpaceModule\s_audio_system\music_toolkit.h" />
+    <ClInclude Include="src\SpaceModule\s_graphic_system\Cameras.h" />
     <ClInclude Include="src\SpaceModule\s_input_system\InputSystem.h" />
     <ClInclude Include="src\SpaceModule\s_input_system\Command.h" />
     <ClInclude Include="src\Platforms\juce\JuceApplication.h" />
@@ -1340,6 +1342,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SpaceModule\s_audio_system\audio_configs.cpp" />
+    <ClCompile Include="src\SpaceModule\s_graphic_system\Cameras.cpp" />
     <ClCompile Include="src\SpaceModule\s_input_system\InputSystem.cpp" />
     <ClCompile Include="src\SpaceModule\s_input_system\Command.cpp" />
     <ClCompile Include="src\Platforms\juce\JuceApplication.cpp" />
@@ -1350,7 +1353,6 @@
     <ClCompile Include="src\SpaceModule\s_node_system\nodes\ASDRNode.cpp" />
     <ClCompile Include="src\SpaceModule\s_node_system\nodes\GainNode.cpp" />
     <ClCompile Include="src\SpaceModule\s_ui_system\UIEventCaller.cpp" />
-    <ClCompile Include="src\SpaceModule\s_ui_system\UILayout.cpp" />
     <ClCompile Include="src\SpaceModule\s_ui_system\UISystem.cpp" />
     <ClCompile Include="src\SpaceModule\s_ui_system\UIElement.cpp" />
     <ClCompile Include="src\SpaceModule\s_ui_system\UIField.cpp" />

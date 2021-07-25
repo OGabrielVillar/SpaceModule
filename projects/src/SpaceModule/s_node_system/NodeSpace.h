@@ -1,24 +1,31 @@
 #pragma once
 
 #include "nodes/include.h"
+#include "SpaceModule/s_graphic_system/Cameras.h"
 
 namespace SpaceModule
 {
-	struct Camera {
-		vec2 position = vec2(0.0f);
-		float zoom = 1.0f;
-	};
-
 	class NodeSpace : public UIElement
 	{
 	public:
 		NodeSpace();
 		~NodeSpace() = default;
 
+		virtual void OnRender(const GraphicSystem& gs) const override;
+		virtual void OnResize() override;
+
+		virtual bool PressCall(InputInfoFinal<UIElement>&) override;
+		virtual void ReleaseCall(InputInfoFinal<UIElement>&) override;
+		virtual void DragCall(const vec2&) override;
+
 		void ProcessAudioSignal(SpaceModule::audiobuffer& in);
 
 	private:
-		Camera camera;
+		vec2 rect_topLeft = { -10.f,-10.f }, rect_bottonRight = { 50.f, 50.f };
+
+		vec2 msPos_preDrag = { 0.f , 0.f };
+		vec2 cameraPos_PreDrag = { 0.f , 0.f };
+		OrthographicCamera m_camera;
 
 	};
 }

@@ -22,9 +22,9 @@ namespace SpaceModule::Nodes
         GenerateTopRight();
     }
 
-    void ASDRNode::OnRender(const GraphicSystem& gs)
+    void ASDRNode::OnRender(const GraphicSystem& gs) const
     {
-        gs.DrawRect( layout.top_right_stack.x, layout.top_right_stack.y, size.x, size.y , rgb(100, 100, 100));
+        gs.DrawRect( layout.top_left_stack.x, layout.top_left_stack.y, size.x, size.y , rgb(100, 100, 100));
     }
     
 }

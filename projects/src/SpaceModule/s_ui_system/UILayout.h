@@ -17,13 +17,13 @@ namespace SpaceModule
 	class UILayout
 	{
 	public:
-		UILayout();
+		UILayout() = default;
 		~UILayout() = default;
 	public:
 		//user
-		XSnap x_snap;
-		YSnap y_snap;
-		glm::vec2 distance;
+		XSnap x_snap = XSnap::Left;
+		YSnap y_snap = YSnap::Top;
+		glm::vec2 distance = { 0.f, 0.f };
 
 		float x_crop_max;
 		float y_crop_max;
@@ -31,7 +31,7 @@ namespace SpaceModule
 		float y_crop_min;
 
 		//autos
-		glm::vec2 top_right;
-		glm::vec2 top_right_stack;
+		glm::vec2 top_left = { 0.f, 0.f };
+		glm::vec2 top_left_stack = { 0.f, 0.f };
 	};
 }

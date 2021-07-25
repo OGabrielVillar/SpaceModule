@@ -33,19 +33,19 @@ namespace SpaceModule
 		return node_in;
 	}
 
-	void UISystem::ScanChilds(UIElement* element_in, const GraphicSystem& gs) const
+	void UISystem::ScanRender(UIElement* element_in, const GraphicSystem& gs) const
 	{
 		element_in->OnRender(gs);
 		for (UIElement* element : element_in->GetChilds())
 		{
 			element->OnRender(gs);
-			ScanChilds(element, gs);
+			ScanRender(element, gs);
 		}
 	}
 
-	void UISystem::Go(const GraphicSystem& gs)
+	void UISystem::Render(const GraphicSystem& gs)
 	{
-		ScanChilds(&screen, gs);
+		ScanRender(&screen, gs);
 	}
 
 	UIEventCaller& UISystem::GetEventCaller()
