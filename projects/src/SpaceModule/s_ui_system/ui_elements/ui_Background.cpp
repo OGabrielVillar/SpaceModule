@@ -18,15 +18,12 @@ namespace SpaceModule
 		{
 			s_g.DrawString(m_value.c_str(),10,m_clickPos.x, m_clickPos.y, 100.f, 100.f, m_color);
 		}
-		bool Background::PressCall(InputInfoFinal<UIElement>& info_in)
+		bool Background::PressCall(InputCall& call_in)
 		{
-			if (info_in.code == cmd_printTimer.GetCode()) {
-				if (info_in.type == Input::InputType::Press) {
-					m_clickPos.x = info_in.ms_x;
-					m_clickPos.y = info_in.ms_y;
-					m_value = std::to_string(m_timer.update());
-					return true;
-				}
+			if (cmd_printTimer.PressInput(call_in)) {
+				m_clickPos = call_in.GetInfo().msPos;
+				m_value = std::to_string(m_timer.update());
+				return true;
 			}
 			return false;
 		}

@@ -5,9 +5,10 @@
 namespace SpaceModule {
 namespace Input {
 
-	enum class InputType : bool {
-		Release = 0 ,
-		Press   = 1 
+	enum class InputType : uint8_t {
+		None    = 0 ,
+		Release = 1 ,
+		Press   = 2 
 	};
 	enum class InputCode : uint16_t
 	{

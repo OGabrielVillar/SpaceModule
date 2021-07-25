@@ -17,7 +17,7 @@ namespace SpaceModule
 			~Background();
 
 			virtual void OnRender(const GraphicSystem& s_g) const override;
-			virtual bool PressCall(InputInfoFinal<UIElement>&) override;
+			virtual bool PressCall(InputCall&) override;
 
 		private:
 			rgb m_color = rgb(200,200,50);

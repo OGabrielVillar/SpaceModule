@@ -14,14 +14,14 @@ namespace SpaceModule
 		virtual void OnRender(const GraphicSystem& gs) const override;
 		virtual void OnResize() override;
 
-		virtual bool PressCall(InputInfoFinal<UIElement>&) override;
-		virtual void ReleaseCall(InputInfoFinal<UIElement>&) override;
+		virtual bool PressCall(InputCall&) override;
+		virtual void ReleaseCall(InputCall&) override;
 		virtual void DragCall(const vec2&) override;
 
 		void ProcessAudioSignal(SpaceModule::audiobuffer& in);
 
 	private:
-		vec2 rect_topLeft = { -10.f,-10.f }, rect_bottonRight = { 50.f, 50.f };
+		vec2 rect_topLeft = { -1.f,-10.f }, rect_bottonRight = { 1.f, 50.f };
 
 		vec2 msPos_preDrag = { 0.f , 0.f };
 		vec2 cameraPos_PreDrag = { 0.f , 0.f };

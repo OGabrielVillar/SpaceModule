@@ -9,31 +9,24 @@ namespace SpaceModule
     {
     }
 
-	bool Node::DragNode_Press(InputInfoFinal<UIElement>& info_in)
+	bool Node::DragNode_Press(InputCall& call_in)
 	{
-        if (info_in.code == cmd_dragNode.GetCode()) {
-            if (HitTest(info_in.ms_x, info_in.ms_y)) {
-                info_in.wait_for_release = true;
-                info_in.get_drag_info = true;
-                info_in.object = this;
-                cmd_dragNode.x_preDrag = info_in.ms_x;
-                cmd_dragNode.y_preDrag = info_in.ms_y;
+        if (cmd_dragNode.PressInput(call_in)) {
+            if (HitTest(call_in.GetInfo().msPos)) {
+                msPos_preDrag = call_in.GetInfo().msPos;
                 dist_preDrag = layout.distance;
-                UpdateSlopeBounds(vec2(info_in.ms_x, info_in.ms_y));
+                UpdateSlopeBounds(call_in.GetInfo().msPos);
                 return true;
             }
         }
         return false;
     }
-	void Node::DragNode_Release(InputInfoFinal<UIElement>& info_in)
+	void Node::DragNode_Release(InputCall& info_in)
 	{
-        if (info_in.code == cmd_dragNode.GetCode()) {
-            info_in.get_drag_info = false;
-        }
 	}
 	void Node::DragNode_Drag(const vec2& msPos_in)
 	{
-        vec2 slope = msPos_in - vec2(cmd_dragNode.x_preDrag, cmd_dragNode.y_preDrag);
+        vec2 slope = msPos_in - msPos_preDrag;
 
         if (slope.x > slope_limit.right)
             slope.x = slope_limit.right;

@@ -59,7 +59,7 @@ namespace SpaceModule::Nodes
         /**/
     }
 
-    bool GainNode::PressCall(InputInfoFinal<UIElement>& info_in)
+    bool GainNode::PressCall(InputCall& info_in)
     {
         return DragNode_Press(info_in);
     }
@@ -67,7 +67,7 @@ namespace SpaceModule::Nodes
     {
         DragNode_Drag(msPos_in);
     }
-    void GainNode::ReleaseCall(InputInfoFinal<UIElement>& info_in)
+    void GainNode::ReleaseCall(InputCall& info_in)
     {
         DragNode_Release(info_in);
     }

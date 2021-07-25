@@ -19,8 +19,8 @@ namespace SpaceModule
 		 
 		 	virtual void OnRender(const GraphicSystem& s_g) const override;
 		 
-		 	virtual bool PressCall(InputInfoFinal<UIElement>&) override;
-		 	virtual void ReleaseCall(InputInfoFinal<UIElement>&) override;
+		 	virtual bool PressCall(InputCall&) override;
+		 	virtual void ReleaseCall(InputCall&) override;
 		 	virtual void DragCall(const vec2&) override;
 		 
 		 	void ModifyValueDrag();

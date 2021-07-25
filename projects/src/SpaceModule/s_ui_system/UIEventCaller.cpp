@@ -7,32 +7,34 @@ namespace SpaceModule {
 	}
 	void UIEventCaller::InputEvent(const InputInfo& info_in)
 	{
-		if (info.wait_for_release)
+		if ( m_call.Have( InputCall::Flag::WaitForRelease ) )
 		{
-			if (info_in.code != info.code) return;
-			if (info_in.type != Input::InputType::Release) return;
-			info = info_in;
-			info.object->ReleaseCall(info);
-			info.wait_for_release = false;
+			if ( m_call != info_in.code ) return;
+			if ( info_in.type != Input::InputType::Release ) return;
+			m_call = info_in;
+			last_element->ReleaseCall(m_call);
+			m_call.ClearFlags();
+
 			return;
 		}
 		handled = false;
-		info = info_in;
+		m_call = info_in;
 		ScanChilds(screen);
+
 		return;
 	}
 
 	void UIEventCaller::OnMouseMovement(const vec2& msPos_in)
 	{
-		if (info.get_drag_info)
+		if ( m_call.Have( InputCall::Flag::GetDragCall ) )
 		{
-			info.object->DragCall(msPos_in);
+			last_element->DragCall(msPos_in);
 		}
 	}
 
 	void UIEventCaller::ScanChilds(UIElement* element_in)
 	{
-		if (!element_in->HitTest(info.ms_x, info.ms_y))
+		if (!element_in->HitTest(m_call.GetInfo().msPos))
 			return;
 		if (!element_in->GetChilds().empty()) {
 			for (layerstack<UIElement*>::RevIterator element = element_in->GetChilds().rbegin();
@@ -43,7 +45,8 @@ namespace SpaceModule {
 			}
 		}
 		if (!handled) {
-			if (element_in->PressCall(info))
+			if (element_in->PressCall(m_call))
+				last_element = element_in;
 				handled = true;
 		}
 		return;

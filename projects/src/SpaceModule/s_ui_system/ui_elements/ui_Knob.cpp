@@ -64,33 +64,20 @@ namespace SpaceModule
 			return m_value;
 		}
 
-		bool Knob::PressCall(InputInfoFinal<UIElement>& info_in){
-			if (info_in.code == cmd_modifyValue.GetCode()){
-				if (!HitTest(info_in.ms_x, info_in.ms_y)) 
+		bool Knob::PressCall(InputCall& call_in){
+			if (cmd_modifyValue.PressInput(call_in)){
+				if (!HitTest(call_in.GetInfo().msPos))
 					return false;
-
-				if (info_in.type == Input::InputType::Press){
-					info_in.wait_for_release = true;
-					info_in.get_drag_info = true;
-					info_in.object = this;
-					cmd_modifyValue.y_preDrag = info_in.ms_y;
-					ModifyValuePress();
-					m_knobAnglePreDrag = m_knobAngle;
-					return true;
-
-				}	
+				cmd_modifyValue.y_preDrag = call_in.GetInfo().msPos.y;
+				ModifyValuePress();
+				m_knobAnglePreDrag = m_knobAngle;
+				return true;
 			}
 			return false;
 		}
 
-		void Knob::ReleaseCall(InputInfoFinal<UIElement>& info_in){
-			if (info_in.code == cmd_modifyValue.GetCode()){
-				ModifyValueRelease();
-				info_in.get_drag_info = false;
-
-				if (!HitTest(info_in.ms_x, info_in.ms_y)) {
-				}
-			}
+		void Knob::ReleaseCall(InputCall& call_in){
+			ModifyValueRelease();
 		}
 
 		void Knob::DragCall(const vec2& msPos_in)

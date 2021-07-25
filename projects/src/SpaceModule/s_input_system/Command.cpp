@@ -2,30 +2,29 @@
 
 namespace SpaceModule
 {
-    Command::Command() :
-        m_bind(Input::InputCode::None),
-        m_name(),
-        m_flags((cmd_flags)0),
-        x_preDrag(0.0f),
-        y_preDrag(0.0f)
+    Command::Command()
     {
     }
     Command::Command(Input::InputCode inputBind_in, const std::string& name_in) :
         m_bind(inputBind_in),
-        m_name(name_in),
-        m_flags((cmd_flags)0),
-        x_preDrag(0.0f),
-        y_preDrag(0.0f)
+        m_name(name_in)
     {
     }
-    Command::Command(Input::CommandTemplate template_in) :
-        m_bind(Input::InputCode::None),
-        m_name(),
-        m_flags((cmd_flags)0),
-        x_preDrag(0.0f),
-        y_preDrag(0.0f)
+    Command::Command(Input::CommandTemplate template_in)
     {
         SetUpTemplate(template_in);
+    }
+    bool Command::PressInput(InputCall& call_in)
+    {
+        if (call_in == m_bind)
+        {
+            if (m_flags.Have(Flag::GetDragCall))
+                    call_in.AddFlag(InputCall::Flag::GetDragCall);
+            if (m_flags.Have(Flag::WaitForRelease))
+                    call_in.AddFlag(InputCall::Flag::WaitForRelease);
+            return true;
+        }
+        return false;
     }
     Input::InputCode Command::GetCode() const
     {
@@ -38,12 +37,12 @@ namespace SpaceModule
         case(Input::CommandTemplate::ui_ButtonPress):
             m_bind = Input::InputCode::MS_LeftButton;
             m_name = "Press";
-            m_flags = cmd_flags::getReleaseInfo | cmd_flags::getDragInfo;
+            m_flags = Flag::WaitForRelease | Flag::GetDragCall;
             break;
         case(Input::CommandTemplate::ui_KnobModifyValue):
             m_bind = Input::InputCode::MS_LeftButton;
             m_name = "Modify Value";
-            m_flags = cmd_flags::getReleaseInfo | cmd_flags::getDragInfo;
+            m_flags = Flag::WaitForRelease | Flag::GetDragCall;
             break;
         case(Input::CommandTemplate::ui_PrintTimer):
             m_bind = Input::InputCode::MS_RightButton;
@@ -52,7 +51,7 @@ namespace SpaceModule
         case(Input::CommandTemplate::ui_DragWindow):
             m_bind = Input::InputCode::MS_LeftButton;
             m_name = "Drag Window";
-            m_flags = cmd_flags::getReleaseInfo | cmd_flags::getDragInfo;
+            m_flags = Flag::WaitForRelease | Flag::GetDragCall;
             break;
         default:
             break;

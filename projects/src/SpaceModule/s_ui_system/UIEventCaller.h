@@ -23,7 +23,8 @@ namespace SpaceModule {
 
 	private:
 		UIElement* screen;
-		InputInfoFinal<UIElement> info;
+		InputCall m_call;
+		UIElement* last_element;
 		bool handled = false;
 	};
 

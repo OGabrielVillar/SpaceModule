@@ -17,66 +17,59 @@ namespace SpaceModule
 		vec2 bl(rect_topLeft.x, rect_bottonRight.y);
 		tr = tr * m;
 		bl = bl * m;
-		gs.DrawLine(tl, tr, 3.f, color);
-		gs.DrawLine(tr, br, 3.f, color);
-		gs.DrawLine(br, bl, 3.f, color);
-		gs.DrawLine(bl, tl, 3.f, color);
+		gs.DrawLine(tl, tr, 1.f, color);
+		gs.DrawLine(tr, br, 1.f, color);
+		gs.DrawLine(br, bl, 1.f, color);
+		gs.DrawLine(bl, tl, 1.f, color);
 	}
 	void NodeSpace::OnResize()
 	{
 		m_camera.SetScreenCenter(size / 2.f);
 	}
-	bool NodeSpace::PressCall(InputInfoFinal<UIElement>& info_in)
+	bool NodeSpace::PressCall(InputCall& call_in)
 	{
-		if (info_in.code == Input::InputCode::MS_MiddleButton && info_in.type == Input::InputType::Press)
+		if (call_in == Input::InputCode::MS_MiddleButton && call_in == Input::InputType::Press)
 		{
-			if (!HitTest(info_in.ms_x, info_in.ms_y))
+			if (!HitTest(call_in.GetInfo().msPos))
 				return false;
-			info_in.wait_for_release = true;
-			info_in.get_drag_info = true;
-			info_in.object = this;
-			msPos_preDrag.x = info_in.ms_x;
-			msPos_preDrag.y = info_in.ms_y;
-			cameraPos_PreDrag = m_camera.GetPosition();
+			call_in.SetFlag(InputCall::Flag::GetDragCall | InputCall::Flag::WaitForRelease);
+			m_camera.DragBegin( call_in.GetInfo().msPos );
 			return true;
 
 		}
-		if (info_in.code == Input::InputCode::MS_RightButton && info_in.type == Input::InputType::Press)
+		if (call_in == Input::InputCode::MS_RightButton && call_in == Input::InputType::Press)
 		{
-			if (!HitTest(info_in.ms_x, info_in.ms_y))
+			if (!HitTest(call_in.GetInfo().msPos))
 				return false;
-			m_camera.RotateBy(angle(degrees(10.f)));
+			//m_camera.RotateBy(angle(degrees(10.f)));
+			m_camera.ScaleBy(1.1f);
 			return true;
 
 		}
-		if (info_in.code == Input::InputCode::MS_LeftButton && info_in.type == Input::InputType::Press)
+		if (call_in == Input::InputCode::MS_LeftButton && call_in == Input::InputType::Press)
 		{
-			if (!HitTest(info_in.ms_x, info_in.ms_y))
+			if (!HitTest(call_in.GetInfo().msPos))
 				return false;
-			m_camera.RotateBy(angle(degrees(-10.f)));
+			//m_camera.RotateBy(angle(degrees(-10.f)));
+			m_camera.ScaleBy(0.9f);
 			return true;
 
 		}
 		return false;
 	}
-	void NodeSpace::ReleaseCall(InputInfoFinal<UIElement>& info_in)
+	void NodeSpace::ReleaseCall(InputCall& info_in)
 	{
-		if (info_in.code == Input::InputCode::MS_MiddleButton && info_in.type == Input::InputType::Release) {
-			info_in.get_drag_info = false;
-		}
 	}
 	void NodeSpace::DragCall(const vec2& msPos_in)
 	{
-		const vec2 ms = msPos_in * m_camera.GetInverseMatrix();
-		const vec2 msPD = msPos_preDrag * m_camera.GetInverseMatrix();
-		m_camera.SetPosition( cameraPos_PreDrag - (ms - msPD) );
+		m_camera.DragUpdate(msPos_in);
 	}
 	void NodeSpace::ProcessAudioSignal(SpaceModule::audiobuffer& data_in)
 	{
 		for (UIElement* element : childs)
 		{
 			Node* node = dynamic_cast<Node*>(element);
-			if (*node == NodeType::Gain)
+			if (node->GetNodeType() == NodeType::Gain)
 			{
 				Nodes::GainNode* gainNode = dynamic_cast<Nodes::GainNode*>(node);
 				gainNode->ProcessAudioSignal(data_in);

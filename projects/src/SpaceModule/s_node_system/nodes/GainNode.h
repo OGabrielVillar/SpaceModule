@@ -18,9 +18,9 @@ namespace SpaceModule::Nodes
         virtual void OnRender(const GraphicSystem& gs) const override;
         ////virtual void OnEvent(Event & event) override {{}
 
-        virtual bool PressCall(InputInfoFinal<UIElement>&) override;
+        virtual bool PressCall(InputCall&) override;
         virtual void DragCall(const vec2&) override;
-        virtual void ReleaseCall(InputInfoFinal<UIElement>& info_in) override;
+        virtual void ReleaseCall(InputCall& info_in) override;
 
 
         void ProcessAudioSignal(audiobuffer& in);

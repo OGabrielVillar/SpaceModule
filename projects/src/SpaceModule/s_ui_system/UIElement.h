@@ -34,8 +34,8 @@ namespace SpaceModule
 		//virtual void OnEvent(Event & event) {}
 
 	//input:
-		virtual bool PressCall(InputInfoFinal<UIElement>&) { return false; }
-		virtual void ReleaseCall(InputInfoFinal<UIElement>&) {}
+		virtual bool PressCall(InputCall&) { return false; }
+		virtual void ReleaseCall(InputCall&) {}
 		virtual void DragCall(const vec2&) {}
 
 	//setters

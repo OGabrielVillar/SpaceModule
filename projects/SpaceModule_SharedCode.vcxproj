@@ -3403,7 +3403,8 @@
     <None Include="vendor\juce\juce_graphics\image_formats\pnglib\libpng_readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="src\SpaceModule\s_ui_system\_concepts.txt" />
+    <Text Include="src\SpaceModule\texts\waves.txt" />
+    <Text Include="src\SpaceModule\texts\_concepts.txt" />
     <Text Include="src\SpaceModule\texts\pitches.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

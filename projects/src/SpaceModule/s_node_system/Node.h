@@ -29,27 +29,27 @@ namespace SpaceModule
 			Node* node;
 			SignalSlot* connectedTo;
 		};
-
-	protected: // Drag Node Command
-		bool DragNode_Press(InputInfoFinal<UIElement>& info_in);
-		void DragNode_Release(InputInfoFinal<UIElement>& info_in);
-		void DragNode_Drag(const vec2&);
-	private:
-		void UpdateSlopeBounds(const vec2& ms_in);
-		SlopeBounds slope_limit;
-		Command cmd_dragNode;
-		vec2 dist_preDrag = { 0.f, 0.f };
-
 	public:
 		Node(NodeType nodetype_in);
 		virtual ~Node() = default;
 
-		//virtual void OnRender(GraphicSystem& const gs) = 0;
-
 		const NodeType& GetNodeType() const { return m_type; }
-		bool operator==(NodeType type_in) const { return m_type == type_in; }
 
-	protected: // node core
+	protected: // Drag Node Command
+		bool DragNode_Press(InputCall& info_in);
+		void DragNode_Release(InputCall& info_in);
+		void DragNode_Drag(const vec2&);
+
+	private:
+		void UpdateSlopeBounds(const vec2& ms_in);
+
+	private:
+		SlopeBounds slope_limit;
+		Command cmd_dragNode;
+		vec2 dist_preDrag = { 0.f, 0.f };
+		vec2 msPos_preDrag = { 0.f, 0.f };
+
+	 protected: // node core
 		NodeType m_type;
 		float width;
 		float height;
