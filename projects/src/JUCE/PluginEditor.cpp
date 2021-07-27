@@ -20,6 +20,7 @@ SpaceModuleAudioProcessorEditor::SpaceModuleAudioProcessorEditor (SpaceModuleAud
     // editor's size to whatever you need it to be.
     setSize (800, 800);
     audioProcessor.LinkApp(&m_App);
+    setWantsKeyboardFocus(true);
     addKeyListener(m_keyM);
     getExplicitFocusOrder();
 }
@@ -41,7 +42,7 @@ void SpaceModuleAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
-    m_App.WhenResized(getWidth(), getHeight());
+    m_App.WhenResized((float)getWidth(), (float)getHeight());
     repaint();
 }
 
@@ -62,19 +63,19 @@ void SpaceModuleAudioProcessorEditor::mouseDown(const juce::MouseEvent& event)
     if (event.mods.isLeftButtonDown())
     {
         using namespace SpaceModule::Input;
-        SpaceModule::InputInfo info(InputCode::MS_LeftButton,InputType::Press,event.position.x, event.position.y);
+        SpaceModule::InputInfo info( InputCode::MS_LeftButton,InputType::Press,event.position.x, event.position.y, event.mods.getRawFlags() );
         m_App.s_InputSystem->InputEvent(info);
     }
     if (event.mods.isRightButtonDown())
     {
         using namespace SpaceModule::Input;
-        SpaceModule::InputInfo info(InputCode::MS_RightButton, InputType::Press, event.position.x, event.position.y);
+        SpaceModule::InputInfo info( InputCode::MS_RightButton, InputType::Press, event.position.x, event.position.y, event.mods.getRawFlags() );
         m_App.s_InputSystem->InputEvent(info);
     }
     if (event.mods.isMiddleButtonDown())
     {
         using namespace SpaceModule::Input;
-        SpaceModule::InputInfo info(InputCode::MS_MiddleButton, InputType::Press, event.position.x, event.position.y);
+        SpaceModule::InputInfo info( InputCode::MS_MiddleButton, InputType::Press, event.position.x, event.position.y, event.mods.getRawFlags() );
         m_App.s_InputSystem->InputEvent(info);
     }
 
@@ -83,24 +84,34 @@ void SpaceModuleAudioProcessorEditor::mouseDown(const juce::MouseEvent& event)
 
 void SpaceModuleAudioProcessorEditor::mouseUp(const juce::MouseEvent& event)
 {
+    using namespace SpaceModule::Input;
     if (event.mods.isLeftButtonDown())
     {
-        using namespace SpaceModule::Input;
-        SpaceModule::InputInfo info(InputCode::MS_LeftButton, InputType::Release, event.position.x, event.position.y);
+        SpaceModule::InputInfo info(InputCode::MS_LeftButton, InputType::Release, event.position.x, event.position.y, event.mods.getRawFlags() );
         m_App.s_InputSystem->InputEvent(info);
     }
     if (event.mods.isRightButtonDown())
     {
-        using namespace SpaceModule::Input;
-        SpaceModule::InputInfo info(InputCode::MS_RightButton, InputType::Release, event.position.x, event.position.y);
+        SpaceModule::InputInfo info(InputCode::MS_RightButton, InputType::Release, event.position.x, event.position.y, event.mods.getRawFlags() );
         m_App.s_InputSystem->InputEvent(info);
     }
     if (event.mods.isMiddleButtonDown())
     {
-        using namespace SpaceModule::Input;
-        SpaceModule::InputInfo info(InputCode::MS_MiddleButton, InputType::Release, event.position.x, event.position.y);
+        SpaceModule::InputInfo info(InputCode::MS_MiddleButton, InputType::Release, event.position.x, event.position.y, event.mods.getRawFlags() );
         m_App.s_InputSystem->InputEvent(info);
     }
 
     repaint();
+}
+
+void SpaceModuleAudioProcessorEditor::mouseWheelMove(const juce::MouseEvent& event, const juce::MouseWheelDetails& wheel)
+{
+    using namespace SpaceModule::Input;
+    if ( wheel.deltaY > 0){
+        SpaceModule::InputInfo info(InputCode::MS_ScrollUp, InputType::Press, event.position.x, event.position.y, event.mods.getRawFlags() );
+        m_App.s_InputSystem->InputEvent(info);
+    } else {
+        SpaceModule::InputInfo info(InputCode::MS_ScrollDown, InputType::Press, event.position.x, event.position.y, event.mods.getRawFlags() );
+        m_App.s_InputSystem->InputEvent(info);
+    }
 }

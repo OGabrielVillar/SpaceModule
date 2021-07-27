@@ -75,9 +75,9 @@ namespace utl{
 		 	_layerstack_iterator operator[](int index) {
 		 		return nullptr; //TODO
 		 	}
-		 	_layerstack_iterator operator->() {
-		 		return m_layer->data;
-		 	}
+		 	//_layerstack_iterator operator->() {
+		 	//	return m_layer->data;
+		 	//}
 		 	ReferenceType operator*() {
 		 		return *(m_layer->data);
 		 	}
@@ -123,9 +123,9 @@ namespace utl{
 		 	_layerstack_reversed_iterator operator[](int index) {
 		 		return nullptr; //TODO
 		 	}
-		 	_layerstack_reversed_iterator operator->() {
-		 		return m_layer->data;
-		 	}
+		 	//_layerstack_reversed_iterator operator->() {
+		 	//	return m_layer->data;
+		 	//}
 		 	ReferenceType operator*() {
 		 		return *(m_layer->data);
 		 	}

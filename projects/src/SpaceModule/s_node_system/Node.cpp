@@ -15,13 +15,13 @@ namespace SpaceModule
             if (HitTest(call_in.GetInfo().msPos)) {
                 msPos_preDrag = call_in.GetInfo().msPos;
                 dist_preDrag = layout.distance;
-                UpdateSlopeBounds(call_in.GetInfo().msPos);
+                UpdateSlopeBounds();
                 return true;
             }
         }
         return false;
     }
-	void Node::DragNode_Release(InputCall& info_in)
+	void Node::DragNode_Release(InputCall&)
 	{
 	}
 	void Node::DragNode_Drag(const vec2& msPos_in)
@@ -41,7 +41,7 @@ namespace SpaceModule
         vec2 result = dist_preDrag + slope;
         SetLayoutDistance(result);
 	}
-    void Node::UpdateSlopeBounds(const vec2& ms_in)
+    void Node::UpdateSlopeBounds()
     {
         vec2 TopLeftSlope = layout.top_left_stack;
         vec2 BotRightSlope = (layout.top_left_stack + size);

@@ -157,7 +157,7 @@ void SpaceModuleAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
         m_app->ProcessAudioSignal(SM_buffer);
     }
 
-    for (size_t i = 0; i < synth.getNumVoices(); i++)
+    for (int i = 0; i < synth.getNumVoices(); i++)
     {
         if (auto voice = dynamic_cast<juce::SynthesiserVoice*>(synth.getVoice(i)))
         {

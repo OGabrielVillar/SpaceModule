@@ -3,7 +3,7 @@
 #include "SpaceModule/core/SpaceModuleHeader.h"
 
 #include "CommandList.h"
-#include "InputSignal.h"
+#include "platforms/JuceInputCodes.h"
 
 namespace SpaceModule
 {
@@ -15,13 +15,14 @@ namespace SpaceModule
 		InputInfo()
 			: code(Input::InputCode::None), type(Input::InputType::None), msPos(0.0f, 0.0f)
 		{}
-		InputInfo(Input::InputCode code_in, Input::InputType type_in, float x_in, float y_in)
-			: code(code_in), type(type_in), msPos(x_in, y_in)
+		InputInfo(Input::InputCode code_in, Input::InputType type_in, float x_in, float y_in, Input::InputModifiers modifiers_in = 0)
+			: code(code_in), type(type_in), msPos(x_in, y_in), modifiers(modifiers_in)
 		{}
 
 		Input::InputCode code;
 		Input::InputType type;
 		vec2 msPos;
+		Input::InputModifiers modifiers = 0;
 
 	};
 	////////////
@@ -68,6 +69,9 @@ namespace SpaceModule
 			m_info = info_in;
 			return *this; 
 		}
+		bool ModifiersEquals(Input::InputModifiers mods_in ) const {
+			return mods_in == m_info.modifiers;
+		}
 		void SetFlag(Flag flag_in) {
 			m_flags = flag_in;
 		}
@@ -110,8 +114,9 @@ namespace SpaceModule
 			enum : uint32_t {
 				WaitForRelease = BIT(0),
 				GetDragCall = BIT(1),
-				ShowInHelpBar = BIT(2),
-				ShowInKeyBindingList = BIT(3)
+				IgnoreKeyModifiers = BIT(3),
+				ShowInHelpBar = BIT(3),
+				ShowInKeyBindingList = BIT(4)
 			};
 		 public:
 			Flag() = default;
@@ -142,6 +147,7 @@ namespace SpaceModule
 
 	 protected:
 		Input::InputCode m_bind = (Input::InputCode)0;
+		Input::InputModifiers m_modifiers = 0;
 		string m_name = "";
 		Flag m_flags = 0;
 

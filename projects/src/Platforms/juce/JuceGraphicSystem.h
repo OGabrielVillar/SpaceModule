@@ -16,9 +16,9 @@ public:
 	virtual void DrawLine(const glm::vec2&, const glm::vec2&, float lineThickness_in, const SpaceModule::rgb& color_in) const override;
 	virtual void DrawImage() const override;
 	virtual void DrawEllipse(float x, float y, float width, float height, float lineThickness, const SpaceModule::rgb& color_in) const override;
-	virtual void DrawString(const char* string_in, int fontsize_in, float x_in, float y_in, float sizex_in, float sizey_in, const SpaceModule::rgb& color_in) const override;
+	virtual void DrawString(const char* string_in, float fontsize_in, float x_in, float y_in, float sizex_in, float sizey_in, const SpaceModule::rgb& color_in) const override;
 
-	void AppendJuceGraphics(juce::Graphics& const);
+	void AppendJuceGraphics(juce::Graphics&);
 private:
 	juce::Graphics* g;
 };

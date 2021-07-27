@@ -20,7 +20,7 @@ namespace SpaceModule
 		virtual void DrawLine(const glm::vec2&, const glm::vec2&, float lineThickness_in, const SpaceModule::rgb& color_in) const = 0;
 		virtual void DrawImage() const = 0;
 		virtual void DrawEllipse(float x, float y, float width, float height, float lineThickness, const rgb& color_in) const = 0;
-		virtual void DrawString(const char* string_in, int fontsize_in, float x_in, float y_in, float sizex_in, float sizey_in, const SpaceModule::rgb& color_in) const = 0;
+		virtual void DrawString(const char* string_in, float fontsize_in, float x_in, float y_in, float sizex_in, float sizey_in, const SpaceModule::rgb& color_in) const = 0;
 
 		//void DrawLayer();
 	private:

@@ -13,7 +13,7 @@ JuceApplication::JuceApplication() :
 	//m_node_B->SetSize(50.0f,50.0f);
 	//m_node_B->GenerateTopRight();
 
-	auto gainNode = s_UISystem->PushNode(new SpaceModule::Nodes::GainNode());
+	s_UISystem->PushNode(new SpaceModule::Nodes::GainNode());
 }
 
 JuceApplication::~JuceApplication()
@@ -21,7 +21,7 @@ JuceApplication::~JuceApplication()
 	delete s_JuceGraphicSystem;
 }
 
-void JuceApplication::Render(juce::Graphics& const g)
+void JuceApplication::Render(juce::Graphics& g)
 {
 	s_JuceGraphicSystem->AppendJuceGraphics(g);
 	s_UISystem->Render(*s_JuceGraphicSystem);

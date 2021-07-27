@@ -25,10 +25,11 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-    void mouseMove(const juce::MouseEvent& event) override;
-    void mouseDrag(const juce::MouseEvent& event) override;
-    void mouseDown(const juce::MouseEvent& event) override;
-    void mouseUp(const juce::MouseEvent& event) override;
+    virtual void mouseMove(const juce::MouseEvent& event) override;
+    virtual void mouseDrag(const juce::MouseEvent& event) override;
+    virtual void mouseDown(const juce::MouseEvent& event) override;
+    virtual void mouseUp(const juce::MouseEvent& event) override;
+    virtual void mouseWheelMove(const juce::MouseEvent& event, const juce::MouseWheelDetails& wheel) override;
 private:
     KeyManager* m_keyM;
     JuceApplication m_App;

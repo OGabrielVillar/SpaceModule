@@ -28,36 +28,49 @@ namespace SpaceModule
 	}
 	bool NodeSpace::PressCall(InputCall& call_in)
 	{
-		if (call_in == Input::InputCode::MS_MiddleButton && call_in == Input::InputType::Press)
+		if (cmd_CameraDragMovement.PressInput(call_in))
 		{
 			if (!HitTest(call_in.GetInfo().msPos))
 				return false;
-			call_in.SetFlag(InputCall::Flag::GetDragCall | InputCall::Flag::WaitForRelease);
+
 			m_camera.DragBegin( call_in.GetInfo().msPos );
 			return true;
-
 		}
-		if (call_in == Input::InputCode::MS_RightButton && call_in == Input::InputType::Press)
+		if (cmd_CameraZoomIn.PressInput(call_in))
 		{
 			if (!HitTest(call_in.GetInfo().msPos))
 				return false;
-			//m_camera.RotateBy(angle(degrees(10.f)));
+
 			m_camera.ScaleBy(1.1f);
 			return true;
-
 		}
-		if (call_in == Input::InputCode::MS_LeftButton && call_in == Input::InputType::Press)
+		if (cmd_CameraZoomOut.PressInput(call_in))
 		{
 			if (!HitTest(call_in.GetInfo().msPos))
 				return false;
-			//m_camera.RotateBy(angle(degrees(-10.f)));
+
 			m_camera.ScaleBy(0.9f);
 			return true;
+		}
+		if (cmd_CameraRollRight.PressInput(call_in))
+		{
+			if (!HitTest(call_in.GetInfo().msPos))
+				return false;
 
+			m_camera.RotateBy(angle(degrees(-10.f)));
+			return true;
+		}
+		if (cmd_CameraRollLeft.PressInput(call_in))
+		{
+			if (!HitTest(call_in.GetInfo().msPos))
+				return false;
+
+			m_camera.RotateBy(angle(degrees(10.f)));
+			return true;
 		}
 		return false;
 	}
-	void NodeSpace::ReleaseCall(InputCall& info_in)
+	void NodeSpace::ReleaseCall(InputCall&)
 	{
 	}
 	void NodeSpace::DragCall(const vec2& msPos_in)

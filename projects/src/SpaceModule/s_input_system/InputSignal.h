@@ -1,20 +1,22 @@
 #pragma once
 
+
 #include "SpaceModule/core/SpaceModuleHeader.h"
+
+#ifndef USING_JUCE_API
 
 namespace SpaceModule {
 namespace Input {
 
 	enum class InputType : uint8_t {
 		None    = 0 ,
-		Release = 1 ,
-		Press   = 2 
+		Press   = 1 ,
+		Release = 2 ,
 	};
 	enum class InputCode : uint16_t
 	{
 
 		None = 0,
-
 
 		//////////////////////
 		//--KEYBOARD INPUT--//
@@ -172,3 +174,5 @@ namespace Input {
 
 }
 }
+
+#endif

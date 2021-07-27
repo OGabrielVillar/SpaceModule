@@ -1,5 +1,7 @@
 #pragma once
 
+#define USING_JUCE_API
+
 #include <memory>
 
 #include "SpaceModule/math/Math.h"

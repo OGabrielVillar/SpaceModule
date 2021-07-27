@@ -10,7 +10,7 @@ namespace SpaceModule::Nodes
         size.x = (float)knobs_amount * (knobs_size + knobs_spacing) + knobs_spacing;
         size.y = knobs_size + knobs_spacing * 3.f;
 
-        knob_count = 0;
+        int knob_count = 0;
         m_gainKnob->SetParent(this);
         m_gainKnob->OnAttach();
         m_gainKnob->SetLayoutDistance(vec2((knobs_size + knobs_spacing) * (float)knob_count + knobs_spacing, knobs_spacing * 2.f));
@@ -38,23 +38,23 @@ namespace SpaceModule::Nodes
         gs.FillRect(layout.top_left_stack.x, layout.top_left_stack.y, size.x, size.y, lo_bg_color);
         gs.DrawRect(layout.top_left_stack.x, layout.top_left_stack.y, size.x, size.y, lo_outline_color);
 
-        /*/LABELS//
+        //LABELS//
         int knob_count = 0;
-        gs.DrawString("Gain", 2,          
-            ( layout.top_left_stack.x + (knobs_size + knobs_spacing) * (float)knob_count ) + 5.f,
-            layout.top_left_stack.y + (knobs_size + knobs_spacing),
+        gs.DrawString("Gain", 10.f,
+            ( layout.top_left_stack.x + (knobs_size + knobs_spacing) * (float)knob_count ) + 15.f,
+            layout.top_left_stack.y + (knobs_size + knobs_spacing) + 10.f,
             knobs_size, 4.f,
             rgb(160, 160, 160));
 
         knob_count++;
-        gs.DrawString(hzLabel.c_str(), 2, 
-            ( layout.top_left_stack.x + (knobs_size + knobs_spacing) * (float)knob_count) + 5.f,
-            layout.top_left_stack.y + (knobs_size + knobs_spacing),
+        gs.DrawString((hzLabel + " Hz").c_str(), 10.f,
+            ( layout.top_left_stack.x + (knobs_size + knobs_spacing) * (float)knob_count) + 15.f,
+            (layout.top_left_stack.y + (knobs_size + knobs_spacing)) + 10.f,
             knobs_size, 4.f,
             rgb(160, 160, 160));
         /**/
 
-        gs.DrawString("Oscillator", 5, layout.top_left_stack.x + 3.f, layout.top_left_stack.y + 1.f, 
+        gs.DrawString("Oscillator", 13.f, layout.top_left_stack.x + 3.f, layout.top_left_stack.y + 1.f, 
                       100.f, 15.f, lo_title_color);
         /**/
     }

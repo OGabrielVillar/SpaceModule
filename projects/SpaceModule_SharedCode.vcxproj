@@ -156,6 +156,7 @@
     <ClInclude Include="src\SpaceModule\math\Math.h" />
     <ClInclude Include="src\SpaceModule\s_input_system\CommandList.h" />
     <ClInclude Include="src\SpaceModule\s_input_system\InputSignal.h" />
+    <ClInclude Include="src\SpaceModule\s_input_system\platforms\JuceInputCodes.h" />
     <ClInclude Include="src\SpaceModule\s_node_system\NodeSpace.h" />
     <ClInclude Include="src\SpaceModule\s_node_system\nodes\ASDRNode.h" />
     <ClInclude Include="src\SpaceModule\s_input_system\EventCaller.h" />

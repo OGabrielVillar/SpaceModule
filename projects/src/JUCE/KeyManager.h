@@ -11,11 +11,12 @@ public:
 	{}
 	~KeyManager() {}
 
-	bool keyPressed(const juce::KeyPress& key, juce::Component* originatingComponent) override {
-		//SpaceModule::InputInfo(SpaceModule::Input::InputCode::,)
-		//m_app.s_InputSystem->InputEvent(;
-		lx++;
-		return false;
+	bool keyPressed(const juce::KeyPress& key, juce::Component*) override {
+		using namespace SpaceModule;
+		InputInfo info( (Input::InputCode)key.getKeyCode(), Input::InputType::Press, 0.0f, 0.0f , key.getModifiers().getRawFlags() );
+		m_app.s_InputSystem->InputEvent(info);
+		
+		return true;
 	}
 private:
 	int lx = 0;

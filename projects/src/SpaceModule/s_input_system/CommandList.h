@@ -16,7 +16,12 @@ namespace SpaceModule
 			ui_ButtonPress = 100,
 			ui_KnobModifyValue = 101,
 			ui_PrintTimer = 102,
-			ui_DragWindow = 103
+			ui_DragWindow = 103,
+			ui_CameraDragMovement,
+			ui_CameraZoomIn      ,
+			ui_CameraZoomOut     ,
+			ui_CameraRollCW      ,  //ClockWise
+			ui_CameraRollCCW        //CounterClockWise
 		};
 	}
 }

@@ -56,12 +56,6 @@ namespace SpaceModule {
 			}
 			return *this;
 		}
-	 	angle& operator+=(angle& in) {
-	 		x = x * in.x - y * in.y;
-	 		y = x * in.y + y * in.x;
-			normalize();
-	 		return *this;
-	 	}
 		angle& operator+=(const angle& in) {
 			x = x * in.x - y * in.y;
 			y = x * in.y + y * in.x;

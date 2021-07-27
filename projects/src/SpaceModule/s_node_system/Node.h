@@ -41,7 +41,7 @@ namespace SpaceModule
 		void DragNode_Drag(const vec2&);
 
 	private:
-		void UpdateSlopeBounds(const vec2& ms_in);
+		void UpdateSlopeBounds();
 
 	private:
 		SlopeBounds slope_limit;

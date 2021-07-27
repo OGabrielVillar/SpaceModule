@@ -27,5 +27,11 @@ namespace SpaceModule
 		vec2 cameraPos_PreDrag = { 0.f , 0.f };
 		OrthographicCamera m_camera;
 
+	private:
+		Command cmd_CameraDragMovement = Input::CommandTemplate::ui_CameraDragMovement;
+		Command cmd_CameraZoomIn = Input::CommandTemplate::ui_CameraZoomIn;
+		Command cmd_CameraZoomOut = Input::CommandTemplate::ui_CameraZoomOut;
+		Command cmd_CameraRollRight = Input::CommandTemplate::ui_CameraRollCW;
+		Command cmd_CameraRollLeft = Input::CommandTemplate::ui_CameraRollCCW;
 	};
 }

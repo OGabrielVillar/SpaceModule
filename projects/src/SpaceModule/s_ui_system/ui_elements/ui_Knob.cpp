@@ -76,7 +76,7 @@ namespace SpaceModule
 			return false;
 		}
 
-		void Knob::ReleaseCall(InputCall& call_in){
+		void Knob::ReleaseCall(InputCall&){
 			ModifyValueRelease();
 		}
 

@@ -29,7 +29,6 @@ namespace SpaceModule::Nodes
         const int knobs_amount = 2;
         const float knobs_size = 50.f;
         const float knobs_spacing = 10.f;
-        int knob_count = 1;
 
      private:
         UI::Knob* m_gainKnob;

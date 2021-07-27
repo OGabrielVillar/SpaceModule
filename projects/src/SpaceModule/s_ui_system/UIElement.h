@@ -28,8 +28,8 @@ namespace SpaceModule
 	public:
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate(float ft) {}
-		virtual void OnRender(const GraphicSystem& s_g) const {}
+		virtual void OnUpdate(float) {}
+		virtual void OnRender(const GraphicSystem&) const {}
 		virtual void OnResize() {}
 		//virtual void OnEvent(Event & event) {}
 

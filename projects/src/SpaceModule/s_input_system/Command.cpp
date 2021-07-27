@@ -16,7 +16,7 @@ namespace SpaceModule
     }
     bool Command::PressInput(InputCall& call_in)
     {
-        if (call_in == m_bind)
+        if (call_in == m_bind && call_in.ModifiersEquals(m_modifiers))
         {
             if (m_flags.Have(Flag::GetDragCall))
                     call_in.AddFlag(InputCall::Flag::GetDragCall);
@@ -53,7 +53,28 @@ namespace SpaceModule
             m_name = "Drag Window";
             m_flags = Flag::WaitForRelease | Flag::GetDragCall;
             break;
-        default:
+        case(Input::CommandTemplate::ui_CameraDragMovement):
+            m_bind = Input::InputCode::MS_MiddleButton;
+            m_name = "Drag Camera";
+            m_flags = Flag::WaitForRelease | Flag::GetDragCall;
+            break;
+        case(Input::CommandTemplate::ui_CameraZoomIn):
+            m_bind = Input::InputCode::MS_ScrollUp;
+            m_name = "Zoom In";
+            break;
+        case(Input::CommandTemplate::ui_CameraZoomOut):
+            m_bind = Input::InputCode::MS_ScrollDown;
+            m_name = "Zoom Out";
+            break;
+        case(Input::CommandTemplate::ui_CameraRollCW):
+            m_bind = Input::InputCode::MS_ScrollUp;
+            m_name = "Roll Right";
+            m_modifiers = Input::InputModifiers::altModifier;
+            break;
+        case(Input::CommandTemplate::ui_CameraRollCCW):
+            m_bind = Input::InputCode::MS_ScrollDown;
+            m_name = "Roll Left";
+            m_modifiers = Input::InputModifiers::altModifier;
             break;
         }
     }
