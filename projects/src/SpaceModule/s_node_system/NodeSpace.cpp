@@ -1,26 +1,18 @@
 #include "NodeSpace.h"
 
+#include "SpaceModule/math/collision.h"
+
 namespace SpaceModule
 {
 	NodeSpace::NodeSpace()
 		: m_camera(-1.f,1.f,-1.f,1.f)
 	{
 		SetSizeAutoSnap(true);
+		mat4Parent = true;
 	}
-	void NodeSpace::OnRender(const GraphicSystem& gs) const
+	void NodeSpace::OnRender(const GraphicSystem& g) const
 	{
-		const rgb color(255, 255, 255);
-		const mat4& m = m_camera.GetViewProjectionMatrix();
-		vec2 tl = rect_topLeft * m;
-		vec2 br = rect_bottonRight * m;
-		vec2 tr(rect_bottonRight.x , rect_topLeft.y);
-		vec2 bl(rect_topLeft.x, rect_bottonRight.y);
-		tr = tr * m;
-		bl = bl * m;
-		gs.DrawLine(tl, tr, 1.f, color);
-		gs.DrawLine(tr, br, 1.f, color);
-		gs.DrawLine(br, bl, 1.f, color);
-		gs.DrawLine(bl, tl, 1.f, color);
+		selectionBox.OnRender(g);
 	}
 	void NodeSpace::OnResize()
 	{
@@ -28,17 +20,22 @@ namespace SpaceModule
 	}
 	bool NodeSpace::PressCall(InputCall& call_in)
 	{
+	 //SELECTION BOX - [ON PRESS]
+		if (selectionBox.OnPress(call_in))
+			return true;
+	 //CAMERA DRAG - [ON PRESS]
 		if (cmd_CameraDragMovement.PressInput(call_in))
 		{
-			if (!HitTest(call_in.GetInfo().msPos))
+			if ( !HitTest( call_in.GetMousePosition() ) )
 				return false;
 
-			m_camera.DragBegin( call_in.GetInfo().msPos );
+			m_camera.DragBegin( call_in.GetMousePosition());
 			return true;
 		}
+	 //CAMERA ZOOM - [ON PRESS]
 		if (cmd_CameraZoomIn.PressInput(call_in))
 		{
-			if (!HitTest(call_in.GetInfo().msPos))
+			if ( !HitTest( call_in.GetMousePosition() ) )
 				return false;
 
 			m_camera.ScaleBy(1.1f);
@@ -46,15 +43,16 @@ namespace SpaceModule
 		}
 		if (cmd_CameraZoomOut.PressInput(call_in))
 		{
-			if (!HitTest(call_in.GetInfo().msPos))
+			if ( !HitTest( call_in.GetMousePosition() ) )
 				return false;
 
 			m_camera.ScaleBy(0.9f);
 			return true;
 		}
+	 //CAMERA ROLL - [ON PRESS]
 		if (cmd_CameraRollRight.PressInput(call_in))
 		{
-			if (!HitTest(call_in.GetInfo().msPos))
+			if ( !HitTest( call_in.GetMousePosition() ) )
 				return false;
 
 			m_camera.RotateBy(angle(degrees(-10.f)));
@@ -62,7 +60,7 @@ namespace SpaceModule
 		}
 		if (cmd_CameraRollLeft.PressInput(call_in))
 		{
-			if (!HitTest(call_in.GetInfo().msPos))
+			if ( !HitTest(call_in.GetMousePosition() ) )
 				return false;
 
 			m_camera.RotateBy(angle(degrees(10.f)));
@@ -70,12 +68,43 @@ namespace SpaceModule
 		}
 		return false;
 	}
-	void NodeSpace::ReleaseCall(InputCall&)
+	void NodeSpace::ReleaseCall(InputCall& call_in)
 	{
+	 //SELECTION BOX - [ON RELEASE]
+		if (selectionBox.OnRelease(call_in)) {
+			return;
+		}
+	 //CAMERA DRAG - [ON RELEASE]
+		if (cmd_CameraDragMovement.ReleaseInput(call_in)) {
+
+			return;
+		}
 	}
 	void NodeSpace::DragCall(const vec2& msPos_in)
 	{
-		m_camera.DragUpdate(msPos_in);
+	 //SELECTION BOX - [ON DRAG]
+		if ( selectionBox.OnDrag(msPos_in) ) {
+			for (UIElement* element : childs) {
+				const vec2 nodeTL = element->GetTopLeftStack() * m_camera.GetViewProjectionMatrix();
+				const vec2 nodeBR = ( element->GetTopLeftStack() + element->GetSize() ) * m_camera.GetViewProjectionMatrix();
+				vec2 boxTL;
+				vec2 boxBR;
+				selectionBox.PassRect(boxTL, boxBR);
+				if (HitTestRectRect(boxTL, boxBR, nodeTL, nodeBR)) {
+					selectionBox.UseRedColor();
+				}
+				else {
+					selectionBox.UseYellowColor();
+				}
+			}
+		}
+	 //CAMERA DRAG - [ON DRAG]
+		if (cmd_CameraDragMovement.IsDragging())
+			m_camera.DragUpdate(msPos_in);
+	}
+	const mat4& NodeSpace::getMat4() const
+	{
+		return m_camera.GetViewProjectionMatrix();
 	}
 	void NodeSpace::ProcessAudioSignal(SpaceModule::audiobuffer& data_in)
 	{

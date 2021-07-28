@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="src\JUCE\KeyManager.h" />
     <ClInclude Include="src\SpaceModule\math\angle.h" />
+    <ClInclude Include="src\SpaceModule\math\collision.h" />
     <ClInclude Include="src\SpaceModule\s_audio_system\audio.h" />
     <ClInclude Include="src\SpaceModule\s_audio_system\audiobuffer.h" />
     <ClInclude Include="src\SpaceModule\s_audio_system\AudioSystem.h" />
@@ -170,6 +171,8 @@
     <ClInclude Include="src\SpaceModule\s_ui_system\ui_elements\include_ui_elements.h" />
     <ClInclude Include="src\SpaceModule\s_ui_system\ui_elements\ui_Background.h" />
     <ClInclude Include="src\SpaceModule\s_ui_system\ui_elements\ui_Knob.h" />
+    <ClInclude Include="src\SpaceModule\s_ui_system\ui_tools\include_ui_tools.h" />
+    <ClInclude Include="src\SpaceModule\s_ui_system\ui_tools\ui_SelectionBox.h" />
     <ClInclude Include="src\SpaceModule\utils\layerstack.h" />
     <ClInclude Include="src\SpaceModule\utils\random.h" />
     <ClInclude Include="src\SpaceModule\utils\time.h" />

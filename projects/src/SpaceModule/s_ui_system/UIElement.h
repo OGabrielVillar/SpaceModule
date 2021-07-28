@@ -11,7 +11,7 @@ namespace SpaceModule
 
 	class UIElement
 	{
-	protected:
+	 protected:
 		struct SlopeBounds {
 			float margin = 10.f;
 			float top = 0.0f;
@@ -20,25 +20,26 @@ namespace SpaceModule
 			float right = 0.0f;
 		};
 
-	public:
+	 public:
 		UIElement();
 		UIElement(UIElement* parent);
 		virtual ~UIElement() = default;
 	
-	public:
+	 public:
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate(float) {}
 		virtual void OnRender(const GraphicSystem&) const {}
+		virtual void OnRenderMat4(const GraphicSystem&, const mat4&) const {}
 		virtual void OnResize() {}
 		//virtual void OnEvent(Event & event) {}
 
-	//input:
+	 //input:
 		virtual bool PressCall(InputCall&) { return false; }
 		virtual void ReleaseCall(InputCall&) {}
 		virtual void DragCall(const vec2&) {}
 
-	//setters
+	 //setters
 		void SetCustomName(const std::string&);
 		void SetLayoutSnap(XSnap x_snap_in, YSnap y_snap_in);
 		void SetSize(float x, float y);
@@ -48,20 +49,23 @@ namespace SpaceModule
 		void SetSizeAutoSnap(bool);
 		void SetXSizeAutoSnap(bool);
 		void SetYSizeAutoSnap(bool);
-	//getters
+	 //getters
 		vec2 GetTopLeft() const;
+		const vec2& GetTopLeftStack() const { return layout.top_left_stack; }
 		const string& GetName() const { return m_customName; }
 		layerstack<UIElement*>& GetChilds();
-		const UILayout& GetLayout() { return layout; }
-		const vec2& GetSize() { return size; }
-
-	//function
+		const UILayout& GetLayout() const { return layout; }
+		const vec2& GetSize() const { return size; }
+		virtual const mat4& getMat4() const { return mat4(); }
+	 //is?
+		bool isMat4Parent() const { return mat4Parent; }
+	 //function
 		bool HitTest(float x_in, float y_in) const;
 		bool HitTest(const vec2&) const;
 
-	//autos
+	 //autos
 		void GenerateTopRight();
-	private:
+	 private:
 		void RearrangeChilds();
 		void RearrangeChildTopRightStack();
 		void CheckAutoSnap();
@@ -69,7 +73,7 @@ namespace SpaceModule
 		void YSizeAutoSnap();
 
 
-	protected: //
+	 protected: //members
 		vec2 size;
 		UILayout layout;
 		UIElement* parent;
@@ -83,6 +87,7 @@ namespace SpaceModule
 		bool mouseLeftButtonBlock = false;
 		bool mouseRightButtonBlock = false;
 		bool mouseMiddleButtonBlock = false;
+		bool mat4Parent = false;
 	};
 
 }

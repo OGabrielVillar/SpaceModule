@@ -32,6 +32,31 @@ namespace SpaceModule
 			vec2 end = rotate( vec2( 0.f, size.x * 0.5f ), m_knobAngle ) + center;
 			s_g.DrawLine(center, end , 3.f, m_color);
 		}
+		void Knob::OnRenderMat4(const GraphicSystem& s_g, const mat4& mat_in) const
+		{
+			const bool isStrait = (float)mat_in[0][1] == 0.f;
+
+			const float Mscale = (float)mat_in[2][2] * -1.f;
+
+			if (isStrait) {
+				const vec2 rect_tl = layout.top_left_stack * mat_in;
+
+				const vec2 MSize = size * Mscale;
+
+				s_g.DrawEllipse(rect_tl.x, rect_tl.y, MSize.x, MSize.y, 3.0f * Mscale, m_color);
+				vec2 center = rect_tl + MSize / 2.0f;
+				vec2 end = rotate(vec2(0.f, MSize.x * 0.5f), m_knobAngle) + center;
+				s_g.DrawLine(center, end, 3.f * Mscale, m_color);
+			} else {
+				const vec2 center = layout.top_left_stack + size / 2.0f;
+				const vec2 Mcenter = center * mat_in;
+				const vec2 Mend = (rotate(vec2(0.f, size.x * 0.5f), m_knobAngle) + center) * mat_in;
+				const vec2 MSize = size * Mscale;
+				const vec2 top_left = (Mcenter - (MSize / 2.0f));
+				s_g.DrawEllipse(top_left.x, top_left.y, MSize.x, MSize.y, 3.0f * Mscale, m_color);
+				s_g.DrawLine(Mcenter, Mend, 3.f * Mscale, m_color);
+			}
+		}
 		void Knob::ModifyValueDrag()
 		{
 		}
@@ -66,9 +91,9 @@ namespace SpaceModule
 
 		bool Knob::PressCall(InputCall& call_in){
 			if (cmd_modifyValue.PressInput(call_in)){
-				if (!HitTest(call_in.GetInfo().msPos))
+				if (!HitTest(call_in.GetMousePosition()))
 					return false;
-				cmd_modifyValue.y_preDrag = call_in.GetInfo().msPos.y;
+				cmd_modifyValue.y_preDrag = call_in.GetMousePosition().y;
 				ModifyValuePress();
 				m_knobAnglePreDrag = m_knobAngle;
 				return true;

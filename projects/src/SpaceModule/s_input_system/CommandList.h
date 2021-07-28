@@ -21,7 +21,8 @@ namespace SpaceModule
 			ui_CameraZoomIn      ,
 			ui_CameraZoomOut     ,
 			ui_CameraRollCW      ,  //ClockWise
-			ui_CameraRollCCW        //CounterClockWise
+			ui_CameraRollCCW     ,  //CounterClockWise
+			ui_SelectionBox
 		};
 	}
 }

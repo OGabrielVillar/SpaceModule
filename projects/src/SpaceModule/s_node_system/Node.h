@@ -39,6 +39,7 @@ namespace SpaceModule
 		bool DragNode_Press(InputCall& info_in);
 		void DragNode_Release(InputCall& info_in);
 		void DragNode_Drag(const vec2&);
+		vec2 DragNode_ConstrainSlope(const vec2&) const;
 
 	private:
 		void UpdateSlopeBounds();

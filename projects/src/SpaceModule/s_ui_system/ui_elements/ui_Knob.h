@@ -18,6 +18,7 @@ namespace SpaceModule
 		 	~Knob();
 		 
 		 	virtual void OnRender(const GraphicSystem& s_g) const override;
+			virtual void OnRenderMat4(const GraphicSystem& s_g, const mat4&) const override;
 		 
 		 	virtual bool PressCall(InputCall&) override;
 		 	virtual void ReleaseCall(InputCall&) override;

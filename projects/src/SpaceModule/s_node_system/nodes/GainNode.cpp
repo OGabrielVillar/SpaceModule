@@ -59,6 +59,53 @@ namespace SpaceModule::Nodes
         /**/
     }
 
+    void GainNode::OnRenderMat4(const GraphicSystem& gs, const mat4& mat_in) const
+    {
+        const bool isStrait = (float)mat_in[0][1] == 0.f;
+
+        const float Mscale = (float)mat_in[2][2] * -1.f;
+
+        const vec2 rect_tl = layout.top_left_stack * mat_in;
+
+        if (isStrait) {
+            //WINDOW
+            gs.FillRect(rect_tl.x, rect_tl.y, size.x * Mscale, size.y * Mscale, lo_bg_color);
+            gs.DrawRect(rect_tl.x, rect_tl.y, size.x * Mscale, size.y * Mscale, lo_outline_color);
+
+            //LABELS//
+            int knob_count = 0;
+            gs.DrawString("Gain", 10.f * Mscale,
+                rect_tl.x + ( ( ( knobs_size + knobs_spacing ) * (float)knob_count ) + 15.f ) * Mscale,
+                rect_tl.y + ( ( knobs_size + knobs_spacing ) + 10.f ) * Mscale,
+                knobs_size * Mscale, 4.f * Mscale,
+                lo_title_color);
+
+            knob_count++;
+            gs.DrawString((hzLabel + " Hz").c_str(), 10.f * Mscale,
+                rect_tl.x + ( ( ( knobs_size + knobs_spacing ) * (float)knob_count ) + 15.f )  * Mscale,
+                rect_tl.y + ( ( knobs_size + knobs_spacing ) + 10.f ) * Mscale,
+                knobs_size * Mscale, 4.f * Mscale,
+                lo_title_color);
+            /**/
+            //Title//
+
+            gs.DrawString("Oscillator", 13.f * Mscale, rect_tl.x + 3.f * Mscale, rect_tl.y + 1.f * Mscale,
+                100.f * Mscale, 15.f * Mscale, lo_title_color);
+
+            /**/
+        } else {
+            //WINDOW
+            const vec2 rect_tr = vec2(layout.top_left_stack.x + size.x, layout.top_left_stack.y) * mat_in;
+            const vec2 rect_br = (layout.top_left_stack + size) * mat_in;
+            const vec2 rect_bl = vec2(layout.top_left_stack.x, layout.top_left_stack.y + size.y) * mat_in;
+
+            gs.DrawLine(rect_tl, rect_tr, Mscale, lo_outline_color);
+            gs.DrawLine(rect_tr, rect_br, Mscale, lo_outline_color);
+            gs.DrawLine(rect_br, rect_bl, Mscale, lo_outline_color);
+            gs.DrawLine(rect_bl, rect_tl, Mscale, lo_outline_color);
+        }
+    }
+
     bool GainNode::PressCall(InputCall& info_in)
     {
         return DragNode_Press(info_in);

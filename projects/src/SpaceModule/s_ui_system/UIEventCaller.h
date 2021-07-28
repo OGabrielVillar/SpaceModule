@@ -19,6 +19,7 @@ namespace SpaceModule {
 
 
 		void ScanChilds(UIElement*);
+		void ScanChildsMat4(UIElement*, InputCall&);
 
 
 	private:
@@ -26,6 +27,7 @@ namespace SpaceModule {
 		InputCall m_call;
 		UIElement* last_element;
 		bool handled = false;
+		const mat4* m_mat4 = nullptr;
 	};
 
 }

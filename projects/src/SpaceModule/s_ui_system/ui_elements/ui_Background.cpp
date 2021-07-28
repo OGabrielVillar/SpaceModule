@@ -21,7 +21,7 @@ namespace SpaceModule
 		bool Background::PressCall(InputCall& call_in)
 		{
 			if (cmd_printTimer.PressInput(call_in)) {
-				m_clickPos = call_in.GetInfo().msPos;
+				m_clickPos = call_in.GetMousePosition();
 				m_value = std::to_string(m_timer.update());
 				return true;
 			}

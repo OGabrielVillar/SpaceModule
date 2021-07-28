@@ -12,8 +12,8 @@ namespace SpaceModule
 	bool Node::DragNode_Press(InputCall& call_in)
 	{
         if (cmd_dragNode.PressInput(call_in)) {
-            if (HitTest(call_in.GetInfo().msPos)) {
-                msPos_preDrag = call_in.GetInfo().msPos;
+            if (HitTest(call_in.GetMousePosition())) {
+                msPos_preDrag = call_in.GetMousePosition();
                 dist_preDrag = layout.distance;
                 UpdateSlopeBounds();
                 return true;
@@ -28,6 +28,15 @@ namespace SpaceModule
 	{
         vec2 slope = msPos_in - msPos_preDrag;
 
+        //slope = DragNode_ConstrainSlope(slope);
+
+        vec2 result = dist_preDrag + slope;
+        SetLayoutDistance(result);
+	}
+    vec2 Node::DragNode_ConstrainSlope(const vec2& slope_in) const
+    {
+        vec2 slope = slope_in;
+
         if (slope.x > slope_limit.right)
             slope.x = slope_limit.right;
         else if (slope.x < slope_limit.left)
@@ -38,9 +47,8 @@ namespace SpaceModule
         else if (slope.y < slope_limit.top)
             slope.y = slope_limit.top;
 
-        vec2 result = dist_preDrag + slope;
-        SetLayoutDistance(result);
-	}
+        return slope;
+    }
     void Node::UpdateSlopeBounds()
     {
         vec2 TopLeftSlope = layout.top_left_stack;

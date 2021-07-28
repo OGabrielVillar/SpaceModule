@@ -36,10 +36,27 @@ namespace SpaceModule
 	void UISystem::ScanRender(UIElement* element_in, const GraphicSystem& gs) const
 	{
 		element_in->OnRender(gs);
+		if (element_in->isMat4Parent()) {
+			for (UIElement* element : element_in->GetChilds()) {
+				const mat4& matrix = element_in->getMat4();
+				element->OnRenderMat4(gs, matrix);
+				ScanRenderMat4(element, gs, matrix);
+			}
+		} else {
+			for (UIElement* element : element_in->GetChilds()) {
+				element->OnRender(gs);
+				ScanRender(element, gs);
+			}
+		}
+	}
+
+	void UISystem::ScanRenderMat4(UIElement* element_in, const GraphicSystem& gs, const mat4& mat_in) const
+	{
+		element_in->OnRenderMat4(gs, mat_in);
 		for (UIElement* element : element_in->GetChilds())
 		{
-			element->OnRender(gs);
-			ScanRender(element, gs);
+			element->OnRenderMat4(gs, mat_in);
+			ScanRenderMat4(element, gs, mat_in);
 		}
 	}
 

@@ -19,9 +19,20 @@ namespace SpaceModule
         if (call_in == m_bind && call_in.ModifiersEquals(m_modifiers))
         {
             if (m_flags.Have(Flag::GetDragCall))
+                    dragging = true;
                     call_in.AddFlag(InputCall::Flag::GetDragCall);
             if (m_flags.Have(Flag::WaitForRelease))
                     call_in.AddFlag(InputCall::Flag::WaitForRelease);
+            return true;
+        }
+        return false;
+    }
+    bool Command::ReleaseInput(InputCall& call_in)
+    {
+        if (call_in == m_bind)
+        {
+            call_in.ClearFlags();
+            dragging = false;
             return true;
         }
         return false;
@@ -75,6 +86,11 @@ namespace SpaceModule
             m_bind = Input::InputCode::MS_ScrollDown;
             m_name = "Roll Left";
             m_modifiers = Input::InputModifiers::altModifier;
+            break;
+        case(Input::CommandTemplate::ui_SelectionBox):
+            m_bind = Input::InputCode::MS_LeftButton;
+            m_name = "SelectionBox";
+            m_flags = Flag::WaitForRelease | Flag::GetDragCall;
             break;
         }
     }

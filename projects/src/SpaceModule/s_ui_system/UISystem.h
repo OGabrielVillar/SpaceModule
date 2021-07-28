@@ -26,6 +26,7 @@ namespace SpaceModule
 		void Render(const GraphicSystem&);
 		void ProcessAudioSignal(SpaceModule::audiobuffer& signal_in);
 		void ScanRender(UIElement*, const GraphicSystem&) const;
+		void ScanRenderMat4(UIElement*, const GraphicSystem&, const mat4& mat_in) const;
 
 		UIEventCaller& GetEventCaller();
 	private: // node system core

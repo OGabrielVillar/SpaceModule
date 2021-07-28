@@ -69,6 +69,13 @@ namespace SpaceModule
 			m_info = info_in;
 			return *this; 
 		}
+		InputCall& withOffset(const vec2& offset_in) {
+			usingMat4 = true;
+			offset = offset_in;
+			return *this;
+		}
+		void stopOffset(){ usingMat4 = false; }
+
 		bool ModifiersEquals(Input::InputModifiers mods_in ) const {
 			return mods_in == m_info.modifiers;
 		}
@@ -98,10 +105,18 @@ namespace SpaceModule
 			return type_in != m_info.type;
 		}
 
-		const InputInfo& GetInfo() const { return m_info; }
+		const vec2& GetMousePosition() const {
+			if (!usingMat4){
+				return m_info.msPos;
+			} else {
+				return offset;
+			}
+		}
 	 private: 
 		InputInfo m_info;
 		Flag m_flags = 0;
+		bool usingMat4 = false;
+		vec2 offset = { 0.0f , 0.0f };
 	};
 
 	////////////
@@ -143,6 +158,8 @@ namespace SpaceModule
 		void SetUpTemplate(Input::CommandTemplate);
 
 		bool PressInput(InputCall&);
+		bool ReleaseInput(InputCall&);
+		bool IsDragging() const { return dragging; };
 		Input::InputCode GetCode() const;
 
 	 protected:
@@ -150,6 +167,7 @@ namespace SpaceModule
 		Input::InputModifiers m_modifiers = 0;
 		string m_name = "";
 		Flag m_flags = 0;
+		bool dragging = false;
 
 	 public:
 		float x_preDrag = 0.0f;
